@@ -3,7 +3,7 @@
 
     <sitemap>
         <loc>http://hifor.net/post-sitemap.xml</loc>
-        <lastmod>2017-01-24T09:46:16.801Z</lastmod>
+        <lastmod>2017-01-24T09:50:15.401Z</lastmod>
     </sitemap>
 
     <sitemap>
@@ -13,12 +13,12 @@
 
     <sitemap>
         <loc>http://hifor.net/category-sitemap.xml</loc>
-        <lastmod>2015-06-28T14:04:43.000Z</lastmod>
+        <lastmod>2015-06-28T17:37:18.000Z</lastmod>
     </sitemap>
 
     <sitemap>
         <loc>http://hifor.net/tag-sitemap.xml</loc>
-        <lastmod>2015-06-28T14:04:43.000Z</lastmod>
+        <lastmod>2015-06-28T17:37:18.000Z</lastmod>
     </sitemap>
 
 </sitemapindex>
