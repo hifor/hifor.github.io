@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hifor</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://hifor.net/"/>
+  <updated>2015-09-27T09:18:34.000Z</updated>
+  <id>http://hifor.net/</id>
+  
+  <author>
+    <name>IKin</name>
+    <email>ikin@hifor.net</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>FastJson序列化和反序列化</title>
+    <link href="http://hifor.net/2015/09/27/FastJson%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    <id>http://hifor.net/2015/09/27/FastJson序列化和反序列化/</id>
+    <published>2015-09-27T08:43:15.000Z</published>
+    <updated>2015-09-27T09:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150927/article_banner_20150927001.png" alt=""><br>fastjson 是一个性能很好的 Java 语言实现的 JSON 解析器和生成器，来自阿里巴巴的工程师开发。<br>官方下载地址<a href="https://github.com/alibaba/fastjson" target="_blank" rel="external">https://github.com/alibaba/fastjson</a><br><a id="more"></a></p>
+<p>###主要特点：</p>
+<p>####1.快速FAST (比其它任何基于Java的解析器和生成器更快，包括jackson）</p>
+<p>####2.强大（支持普通JDK类包括任意Java Bean Class、Collection、Map、Date或enum）</p>
+<p>####3.零依赖（没有依赖其它任何类库除了JDK）</p>
+<p>###示例代码</p>
+<p>####1.实体类</p>
+<p>#####普通实体类 User.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> net.hifor.demo;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">  <span class="keyword">private</span> String userid;</div><div class="line">  <span class="keyword">private</span> String name;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">int</span>[] departments;</div><div class="line">  <span class="keyword">private</span> String position;</div><div class="line">  <span class="keyword">private</span> String mobile;</div><div class="line">  <span class="keyword">private</span> String gender;</div><div class="line">  <span class="keyword">private</span> String email;</div><div class="line">  <span class="keyword">private</span> String weixinid;</div><div class="line">  <span class="keyword">private</span> String avatar_mediaid;</div><div class="line">  <span class="keyword">private</span> String extattr;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserid</span><span class="params">(String userid)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.userid = userid;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getUserid</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.userid;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">public</span> <span class="keyword">int</span>[] getDepartments() &#123;</div><div class="line">    <span class="keyword">return</span> departments;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDepartments</span><span class="params">(<span class="keyword">int</span>[] departments)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.departments = departments;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPosition</span><span class="params">(String position)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.position = position;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getPosition</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.position;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMobile</span><span class="params">(String mobile)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.mobile = mobile;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getMobile</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.mobile;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setGender</span><span class="params">(String gender)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.gender = gender;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getGender</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.gender;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEmail</span><span class="params">(String email)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.email = email;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getEmail</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.email;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWeixinid</span><span class="params">(String weixinid)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.weixinid = weixinid;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getWeixinid</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.weixinid;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAvatar_mediaid</span><span class="params">(String avatar_mediaid)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.avatar_mediaid = avatar_mediaid;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getAvatar_mediaid</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.avatar_mediaid;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setExtattr</span><span class="params">(String extattr)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.extattr = extattr;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getExtattr</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.extattr;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>#####泛型类 Result.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> net.hifor.demo;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Result</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">private</span> String errorcode;</div><div class="line">  <span class="keyword">private</span> String errormes;</div><div class="line">  <span class="keyword">private</span> T data;</div><div class="line"></div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getErrorcode</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> errorcode;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setErrorcode</span><span class="params">(String errorcode)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.errorcode = errorcode;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getErrormes</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> errormes;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setErrormes</span><span class="params">(String errormes)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.errormes = errormes;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> T <span class="title">getData</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> data;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(T data)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.data = data;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>####2.使用FastJson解析JSON</p>
+<p>#####序列化,并格式化JSON字符串<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//初始化对象</span></div><div class="line">User user = <span class="keyword">new</span> User();</div><div class="line">user.setUserid(<span class="string">"1001001"</span>);</div><div class="line">user.setName(<span class="string">"张三"</span>);</div><div class="line">user.setDepartments(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>&#125;);</div><div class="line">user.setPosition(<span class="string">"产品经理"</span>);</div><div class="line">user.setMobile(<span class="string">"15913215421"</span>);</div><div class="line">user.setGender(<span class="string">"1"</span>);</div><div class="line">user.setEmail(<span class="string">"zhangsan@gzdev.com"</span>);</div><div class="line">user.setWeixinid(<span class="string">"zhangsan4dev"</span>);</div><div class="line">user.setAvatar_mediaid(<span class="string">"2-G6nrLmr5EC3MNb_-zL1dDdzkd0p7cNliYu9V5w7o8K0"</span>);</div><div class="line"></div><div class="line"><span class="comment">//对象序列化</span></div><div class="line">String json =  JSONObject.toJSONString(user);</div><div class="line"><span class="comment">//对象序列化并格式化</span></div><div class="line">System.out.println(JSONObject.toJSONString(user, <span class="keyword">true</span>));</div></pre></td></tr></table></figure></p>
+<p>#####反序列化普通对象,<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//普通对象反序列化</span></div><div class="line">User deserializableUser = JSONObject.parseObject(json, User.class);</div><div class="line">System.out.println(<span class="string">"姓名："</span> + deserializableUser.getName());</div></pre></td></tr></table></figure></p>
+<p>#####反序列化泛型对象,针对泛型类型,需要使用TypeReference进行解析<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">json = <span class="string">"&#123;\"errorcode\":\"0\",\"errormes\":\"ok\",\"data\":"</span>+json+<span class="string">"&#125;"</span>;</div><div class="line"><span class="comment">//泛型对象反序列化</span></div><div class="line">Result&lt;User&gt; result = JSONObject.parseObject(json, <span class="keyword">new</span> TypeReference&lt;Result&lt;User&gt;&gt;()&#123;&#125;);</div><div class="line">System.out.println(<span class="string">"手机："</span> + result.getData().getMobile());</div><div class="line">System.out.println(JSONObject.toJSONString(result, <span class="keyword">true</span>));</div></pre></td></tr></table></figure></p>
+<p>原文地址:<a href="http://hifor.net/2015/09/27/FastJson序列化和反序列化">http://hifor.net/2015/09/27/FastJson序列化和反序列化</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      FastJson序列化和反序列化 JSON解析 泛型反序列化
+    
+    </summary>
+    
+      <category term="java" scheme="http://hifor.net/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://hifor.net/tags/java/"/>
+    
+      <category term="json" scheme="http://hifor.net/tags/json/"/>
+    
+      <category term="fastjson" scheme="http://hifor.net/tags/fastjson/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>log4j2配置</title>
+    <link href="http://hifor.net/2015/09/26/log4j2%E9%85%8D%E7%BD%AE/"/>
+    <id>http://hifor.net/2015/09/26/log4j2配置/</id>
+    <published>2015-09-26T15:44:36.000Z</published>
+    <updated>2015-09-27T02:46:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150926/article_banner_20150926002.png" alt=""><br>log4j 2的配置(输出日志到WEB项目目录、不同级别日志保存不同文件、日志压缩等)<br><a id="more"></a></p>
+<p>官方下载地址<a href="http://logging.apache.org/log4j/2.x/download.html" target="_blank" rel="external">http://logging.apache.org/log4j/2.x/download.html</a><br>官方配置说明<a href="http://logging.apache.org/log4j/2.x/manual/configuration.html#SystemProperties" target="_blank" rel="external">http://logging.apache.org/log4j/2.x/manual/configuration.html#SystemProperties</a></p>
+<p>log4j 2版本已经不支持properties类型的配置文件了，默认配置文件名称及优先级如下(配置文件路径要放在classpath下)：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">优先级</th>
+<th style="text-align:center">文件类型</th>
+<th style="text-align:left">文件名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">YAML</td>
+<td style="text-align:left">log4j2-test.yaml log4j2-test.yml</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">JSON</td>
+<td style="text-align:left">log4j2-test.json log4j2-test.jsn</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">XML</td>
+<td style="text-align:left">log4j2-test.xml</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">YAML</td>
+<td style="text-align:left">log4j2.yaml log4j2.yml</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">JSON</td>
+<td style="text-align:left">log4j2.json log4j2.jsn</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">XML</td>
+<td style="text-align:left">log4j2.xml</td>
+</tr>
+</tbody>
+</table>
+<p>在没有任何配置的情况下，log4j2会使用默认配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">Configuration</span> <span class="attr">status</span>=<span class="string">"WARN"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Appenders</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">Console</span> <span class="attr">name</span>=<span class="string">"Console"</span> <span class="attr">target</span>=<span class="string">"SYSTEM_OUT"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"%d&#123;HH:mm:ss.SSS&#125; [%t] %-5level %logger&#123;36&#125; - %msg%n"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">Console</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">Appenders</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Loggers</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">Root</span> <span class="attr">level</span>=<span class="string">"error"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">AppenderRef</span> <span class="attr">ref</span>=<span class="string">"Console"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">Root</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">Loggers</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">Configuration</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>该配置只有一个Appender：Console，目标是SYSTEM_OUT，即日志内容，都会打印在控制台上。Root Logger的级别是error，即：所有error及以上级别的日志才会记录。<br>(注：日志级别顺序为 TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL )，所以最终只有2日志会输出(error,fatal)<br>配置第1行中的status=”WARN”，可以去掉，它的含义为是否记录log4j2本身的event信息，默认是OFF，设置成“WARN”指：所有log4j2的event信息中，只有WARN及以上级别的信息才记录，大家可以把它改成TRACE试试(最低级别)，看下输出内容有何变化。</p>
+<p>再讲下如何把不同级别的日志，输出到不同的日志文件中以及文件大小限制及压缩。这个在网上，包括官网上，都没有一个是说清楚的。<br>比如，希望trace/debug级别的日志输出到debug.log，而info级别的日志输出到info.log，其他如warn/error/fatal级别的日志都输出到error.log，这样分开输出是有好处的。我们按照如下的log42j.xml的配置，即可实现这样的输出。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="comment">&lt;!-- status="OFF"，可以去掉，它的含义为是否记录log4j2本身的event信息，默认是OFF --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">status</span>=<span class="string">"OFF"</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!-- 定义下面的引用名 --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">Properties</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"log_pattern"</span>&gt;</span>%d&#123;yyyy-MM-dd HH:mm:ss z&#125; %-5level %class&#123;36&#125;%L%M - %msg%xEx%n<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"log-path"</span>&gt;</span>$&#123;web:rootDir&#125;/logs<span class="tag">&lt;/<span class="name">property</span>&gt;</span><span class="comment">&lt;!-- $&#123;web:rootDir&#125;是项目根目录 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"every_file_size"</span>&gt;</span>5M<span class="tag">&lt;/<span class="name">property</span>&gt;</span><span class="comment">&lt;!-- 日志切割的最小单位 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"output_log_level"</span>&gt;</span>debug<span class="tag">&lt;/<span class="name">property</span>&gt;</span><span class="comment">&lt;!-- 日志输出级别 --&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">Properties</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="comment">&lt;!--先定义所有的appender --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">appenders</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!--这个输出控制台的配置 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">Console</span> <span class="attr">name</span>=<span class="string">"Console"</span> <span class="attr">target</span>=<span class="string">"SYSTEM_OUT"</span>&gt;</span></div><div class="line">      <span class="comment">&lt;!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） --&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">"trace"</span> <span class="attr">onMatch</span>=<span class="string">"ACCEPT"</span> <span class="attr">onMismatch</span>=<span class="string">"DENY"</span> /&gt;</span></div><div class="line">      <span class="comment">&lt;!--这个都知道是输出日志的格式 --&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"$&#123;log_pattern&#125;"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">Console</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="comment">&lt;!-- debug级别日志文件 --&gt;</span></div><div class="line">    <span class="comment">&lt;!--每次大小超过size，则这size大小的日志会自动进行压缩，作为存档 --&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">RollingFile</span> <span class="attr">name</span>=<span class="string">"app_debug"</span> <span class="attr">fileName</span>=<span class="string">"$&#123;log-path&#125;/debug/debug.log"</span> <span class="attr">filePattern</span>=<span class="string">"$&#123;log-path&#125;/debug/debug-%d&#123;yyyy-MM-dd&#125;-%i.log.gz"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">Filters</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">"info"</span> <span class="attr">onMatch</span>=<span class="string">"DENY"</span> <span class="attr">onMismatch</span>=<span class="string">"NEUTRAL"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">"debug"</span> <span class="attr">onMatch</span>=<span class="string">"ACCEPT"</span> <span class="attr">onMismatch</span>=<span class="string">"NEUTRAL"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">Filters</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"$&#123;log_pattern&#125;"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">SizeBasedTriggeringPolicy</span> <span class="attr">size</span>=<span class="string">"$&#123;every_file_size&#125;"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">RollingFile</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="comment">&lt;!-- info级别日志文件 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">RollingFile</span> <span class="attr">name</span>=<span class="string">"app_info"</span> <span class="attr">fileName</span>=<span class="string">"$&#123;log-path&#125;/info/info.log"</span> <span class="attr">filePattern</span>=<span class="string">"$&#123;log-path&#125;/info/info-%d&#123;yyyy-MM-dd&#125;-%i.log.gz"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">Filters</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">"warn"</span> <span class="attr">onMatch</span>=<span class="string">"DENY"</span> <span class="attr">onMismatch</span>=<span class="string">"NEUTRAL"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">"info"</span> <span class="attr">onMatch</span>=<span class="string">"ACCEPT"</span> <span class="attr">onMismatch</span>=<span class="string">"DENY"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">Filters</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"$&#123;log_pattern&#125;"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">SizeBasedTriggeringPolicy</span> <span class="attr">size</span>=<span class="string">"$&#123;every_file_size&#125;"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">RollingFile</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="comment">&lt;!-- error级别日志文件 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">RollingFile</span> <span class="attr">name</span>=<span class="string">"app_error"</span> <span class="attr">fileName</span>=<span class="string">"$&#123;log-path&#125;/error/error.log"</span> <span class="attr">filePattern</span>=<span class="string">"$&#123;log-path&#125;/error/error-%d&#123;yyyy-MM-dd&#125;-%i.log.gz"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">Filters</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">"warn"</span> <span class="attr">onMatch</span>=<span class="string">"ACCEPT"</span> <span class="attr">onMismatch</span>=<span class="string">"DENY"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">Filters</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">"$&#123;log_pattern&#125;"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">SizeBasedTriggeringPolicy</span> <span class="attr">size</span>=<span class="string">"$&#123;every_file_size&#125;"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">RollingFile</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;/<span class="name">appenders</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="comment">&lt;!--然后定义logger，只有定义了logger并引入的appender，appender才会生效 --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">loggers</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--建立一个默认的root的logger，需要在root的level中指定输出的级别， --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"$&#123;output_log_level&#125;"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"Console"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"app_debug"</span>/&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"app_info"</span>/&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"app_error"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">root</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">loggers</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>主要是要理解ThresholdFilter的onMatch/onMismatch的三个选项值：ACCEPT/DENY/NEUTRAL，其实，根据字面意思，也很好理解。<br>重要的是，如果有多个ThresholdFilter，那么Filters是必须的，同时在Filters中，首先要过滤不符合的日志级别，把不需要的首先DENY掉，然后再ACCEPT需要的日志级别，这个次序不能搞颠倒。</p>
+<p>原文地址:<a href="http://hifor.net/2015/09/26/log4j2配置">http://hifor.net/2015/09/26/log4j2配置</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      log4j 2的配置(输出日志到WEB项目目录、不同级别日志保存不同文件、日志压缩等)
+    
+    </summary>
+    
+      <category term="java" scheme="http://hifor.net/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://hifor.net/tags/java/"/>
+    
+      <category term="log4j2" scheme="http://hifor.net/tags/log4j2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端工程与性能优化</title>
+    <link href="http://hifor.net/2015/09/26/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    <id>http://hifor.net/2015/09/26/前端工程与性能优化/</id>
+    <published>2015-09-26T08:36:46.000Z</published>
+    <updated>2015-09-28T15:09:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150926/article_banner_20150926001.png" alt=""><br>每个参与过开发企业级web应用的前端工程师或许都曾思考过前端性能优化方面的问题。我们有雅虎14条性能优化原则，还有两本很经典的性能优化指导书：《高性能网站建设指南》、《高性能网站建设进阶指南》。经验丰富的工程师对于前端性能优化方法耳濡目染，基本都能一一列举出来。这些性能优化原则大概是在7年前提出的，对于web性能优化至今都有非常重要的指导意义。<br><a id="more"></a></p>
+<p>然而，对于构建大型web应用的团队来说，要坚持贯彻这些优化原则并不是一件十分容易的事。因为优化原则中很多要求是与工程管理相违背的，比如 <code>把css放在头部</code> 和 <code>把js放在尾部</code> 这两条原则，我们不能让团队的工程师在写样式和脚本引用的时候都去修改一个相同的页面文件。这样做会严重影响团队成员间并行开发的效率，尤其是在团队有版本管理的情况下，每天要花大量的时间进行代码修改合并，这项成本是难以接受的。因此在前端工程界，总会看到周期性的性能优化工作，辛勤的前端工程师们每到月圆之夜就会倾巢出动根据优化原则做一次性能优化。</p>
+<blockquote>
+<p>性能优化是一个工程问题</p>
+</blockquote>
+<p>本文将从一个全新的视角来思考web性能优化与前端工程之间的关系，揭示前端性能优化在前端架构及开发工具设计层面的实现思路。</p>
+<h2 id="性能优化原则及分类"><a href="#性能优化原则及分类" class="headerlink" title="性能优化原则及分类"></a>性能优化原则及分类</h2><p>po主先假设本文的读者是有前端开发经验的工程师，并对企业级web应用开发及性能优化有一定的思考，因此我不会重复介绍雅虎14条性能优化原则。如果您没有这些前续知识，请移步 <a href="http://developer.yahoo.com/performance/rules.html" target="_blank" rel="external">这里</a> 来学习。</p>
+<p>首先，我们把雅虎14条优化原则，《高性能网站建设指南》以及《高性能网站建设进阶指南》中提到的优化点做一次梳理，按照优化方向分类，可以得到这样一张表格：</p>
+<table>
+<thead>
+<tr>
+<th>优化方向</th>
+<th>优化手段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>请求数量</td>
+<td>合并脚本和样式表，CSS Sprites，拆分初始化负载，划分主域</td>
+</tr>
+<tr>
+<td>请求带宽</td>
+<td>开启GZip，精简JavaScript，移除重复脚本，图像优化</td>
+</tr>
+<tr>
+<td>缓存利用</td>
+<td>使用CDN，使用外部JavaScript和CSS，添加Expires头，<br>减少DNS查找，配置ETag，使AjaX可缓存</td>
+</tr>
+<tr>
+<td>页面结构</td>
+<td>将样式表放在顶部，将脚本放在底部，尽早刷新文档的输出</td>
+</tr>
+<tr>
+<td>代码校验</td>
+<td>避免CSS表达式，避免重定向</td>
+</tr>
+</tbody>
+</table>
+<p>目前大多数前端团队可以利用 <a href="http://yui.github.io/yuicompressor/" target="_blank" rel="external">yui compressor</a> 或者 <a href="https://code.google.com/p/closure-compiler/" target="_blank" rel="external">google closure compiler</a> 等压缩工具很容易做到 <code>精简Javascript</code> 这条原则；同样的，也可以使用图片压缩工具对图像进行压缩，实现 <code>图像优化</code> 原则。这两条原则是对单个资源的处理，因此不会引起任何工程方面的问题。很多团队也通过引入代码校验流程来确保实现 <code>避免css表达式</code> 和 <code>避免重定向</code> 原则。目前绝大多数互联网公司也已经开启了服务端的Gzip压缩，并使用CDN实现静态资源的缓存和快速访问；一些技术实力雄厚的前端团队甚至研发出了自动CSS Sprites工具，解决了CSS Sprites在工程维护方面的难题。使用“查找-替换”思路，我们似乎也可以很好的实现 <code>划分主域</code> 原则。</p>
+<p>我们把以上这些已经成熟应用到实际生产中的优化手段去除掉，留下那些还没有很好实现的优化原则。再来回顾一下之前的性能优化分类：</p>
+<table>
+<thead>
+<tr>
+<th>优化方向</th>
+<th>优化手段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>请求数量</td>
+<td>合并脚本和样式表，拆分初始化负载</td>
+</tr>
+<tr>
+<td>请求带宽</td>
+<td>移除重复脚本</td>
+</tr>
+<tr>
+<td>缓存利用</td>
+<td>添加Expires头，配置ETag，使Ajax可缓存</td>
+</tr>
+<tr>
+<td>页面结构</td>
+<td>将样式表放在顶部，将脚本放在底部，尽早刷新文档的输出</td>
+</tr>
+</tbody>
+</table>
+<p>有很多顶尖的前端团队可以将上述还剩下的优化原则也都一一解决，但业界大多数团队都还没能很好的解决这些问题。因此，本文将就这些原则的解决方案做进一步的分析与讲解，从而为那些还没有进入前端工业化开发的团队提供一些基础技术建设意见，也借此机会与业界顶尖的前端团队在工业化工程化方向上交流一下彼此的心得。</p>
+<h2 id="静态资源版本更新与缓存"><a href="#静态资源版本更新与缓存" class="headerlink" title="静态资源版本更新与缓存"></a>静态资源版本更新与缓存</h2><p><code>缓存利用</code> 分类中保留了 <code>添加Expires头</code> 和 <code>配置ETag</code> 两项。或许有些人会质疑，明明这两项只要配置了服务器的相关选项就可以实现，为什么说它们难以解决呢？确实，开启这两项很容易，但开启了缓存后，我们的项目就开始面临另一个挑战： <code>如何更新这些缓存？</code></p>
+<p>相信大多数团队也找到了类似的答案，它和《高性能网站建设指南》关于“添加Expires头”所说的原则一样——修订文件名。即：</p>
+<blockquote>
+<p>最有效的解决方案是修改其所有链接，这样，全新的请求将从原始服务器下载最新的内容。</p>
+</blockquote>
+<p>思路没错，但要怎么改变链接呢？变成什么样的链接才能有效更新缓存，又能最大限度避免那些没有修改过的文件缓存不失效呢？</p>
+<p>先来看看现在一般前端团队的做法：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"a.js?t=201404231123"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"b.js?t=201404231123"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"c.js?t=201404231123"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"d.js?t=201404231123"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"e.js?t=201404231123"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>ps: 也有团队采用构建版本号为静态资源请求添加query，它们在本质上是没有区别的，在此就不赘述了。</p>
+</blockquote>
+<p>接下来，项目升级，比如页面上的html结构发生变化，对应还要修改 <code>a.js</code> 这个文件，得到的构建结果如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"a.js?t=201404231826"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"b.js?t=201404231826"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"c.js?t=201404231826"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"d.js?t=201404231826"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"e.js?t=201404231826"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>为了触发用户浏览器的缓存更新，我们需要更改静态资源的url地址，如果采用构建信息（时间戳、版本号等）作为url修改的依据，如上述代码所示，我们只修改了一个a.js文件，但再次构建会让所有请求都更改了url地址，用户再度访问页面那些没有修改过的静态资源的(b.js，b.js，c.js，d.js，e.js)的浏览器缓存也一同失效了。</p>
+<blockquote>
+<p>使用构建信息作为静态资源更新标记会导致每次构建发布后所有静态资源都被迫更新，浏览器缓存利用率降低，给性能带来伤害。</p>
+</blockquote>
+<p>此外，采用添加query的方式来清除缓存还有一个弊端，就是 <code>覆盖式发布</code> 的上线问题。</p>
+<p><img src="https://raw.githubusercontent.com/fouber/blog/master/assets/deploy.png" alt="覆盖式发布"></p>
+<p>采用query更新缓存的方式实际上要覆盖线上文件的，index.html和a.js总有一个先后的顺序，从而中间出现一段或大或小的时间间隔。尤其是当页面是后端渲染的模板的时候，静态资源和模板是部署在不同的机器集群上的，上线的过程中，静态资源和页面文件的部署时间间隔可能会非常长，对于一个大型互联网应用来说即使在一个很小的时间间隔内，都有可能出现新用户访问。在这个时间间隔中，访问了网站的用户会发生什么情况呢？</p>
+<ol>
+<li>如果先覆盖index.html，后覆盖a.js，用户在这个时间间隙访问，会得到新的index.html配合旧的a.js的情况，从而出现错误的页面。</li>
+<li>如果先覆盖a.js，后覆盖index.html，用户在这个间隙访问，会得到旧的index.html配合新的a.js的情况，从而也出现了错误的页面。</li>
+</ol>
+<p>这就是为什么大型web应用在版本上线的过程中经常会较集中的出现前端报错日志的原因，也是一些互联网公司选择加班到半夜等待访问低峰期再上线的原因之一。</p>
+<p>对于静态资源缓存更新的问题，目前来说最优方案就是 <code>基于文件内容的hash版本冗余机制</code> 了。也就是说，我们希望项目源码是这么写的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"a.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>发布后代码变成</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"a_8244e91.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>也就是a.js发布出来后被修改了文件名，产生一个新文件，并不是覆盖已有文件。其中”_82244e91”这串字符是根据a.js的文件内容进行hash运算得到的，只有文件内容发生变化了才会有更改。由于将文件发布为带有hash的新文件，而不是同名文件覆盖，因此不会出现上述说的那些问题。同时，这么做还有其他的好处：</p>
+<ol>
+<li>上线的a.js不是同名文件覆盖，而是文件名+hash的冗余，所以可以先上线静态资源，再上线html页面，不存在间隙问题；</li>
+<li>遇到问题回滚版本的时候，无需回滚a.js，只须回滚页面即可；</li>
+<li>由于静态资源版本号是文件内容的hash，因此所有静态资源可以开启永久强缓存，只有更新了内容的文件才会缓存失效，缓存利用率大增；</li>
+</ol>
+<blockquote>
+<p>以文件内容的hash值为依据生产新文件的非覆盖式发布策略是解决静态资源缓存更新最有效的手段。</p>
+</blockquote>
+<p>虽然这种方案是相比之下最完美的解决方案，但它无法通过手工的形式来维护，因为要依靠手工的形式来计算和替换hash值，并生成相应的文件，将是一项非常繁琐且容易出错的工作，因此我们需要借助工具来处理。</p>
+<p>用grunt来实现md5功能是非常困难的，因为grunt只是一个task管理器，而md5计算需要构建工具具有递归编译的能，而不是简单的任务调度。考虑这样的例子：</p>
+<p><img src="https://raw.githubusercontent.com/fouber/blog/master/assets/md5.png" alt="md5计算过程"></p>
+<p>由于我们的资源版本号是通过对文件内容进行hash运算得到，如上图所示，index.html中引用的a.css文件的内容其实也包含了a.png的hash运算结果，因此我们在修改index.html中a.css的引用时，不能直接计算a.css的内容hash，而是要先计算出a.png的内容hash，替换a.css中的引用，得到了a.css的最终内容，再做hash运算，最后替换index.html中的引用。</p>
+<blockquote>
+<p>计算index.html中引用的a.css文件的url过程：</p>
+<ol>
+<li>压缩a.png后计算其内容的md5值</li>
+<li>将a.png的md5写入a.css，再压缩a.css，计算其内容的md5值</li>
+<li>将a.css的md5值写入到index.html中</li>
+</ol>
+</blockquote>
+<p>grunt等task-based的工具是很难在task之间协作处理这样的需求的。</p>
+<p>在解决了基于内容hash的版本更新问题之后，我们可以将所有前端静态资源开启永久强缓存，每次版本发布都可以首先让静态资源全量上线，再进一步上线模板或者页面文件，再也不用担心各种缓存和时间间隙的问题了！</p>
+<h2 id="静态资源管理与模块化框架"><a href="#静态资源管理与模块化框架" class="headerlink" title="静态资源管理与模块化框架"></a>静态资源管理与模块化框架</h2><p>解决了静态资源缓存问题之后，让我们再来看看前面的优化原则表还剩些什么：</p>
+<table>
+<thead>
+<tr>
+<th>优化方向</th>
+<th>优化手段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>请求数量</td>
+<td>合并脚本和样式表，拆分初始化负载</td>
+</tr>
+<tr>
+<td>请求带宽</td>
+<td>移除重复脚本</td>
+</tr>
+<tr>
+<td>缓存利用</td>
+<td>使Ajax可缓存</td>
+</tr>
+<tr>
+<td>页面结构</td>
+<td>将样式表放在顶部，将脚本放在底部，尽早刷新文档的输出</td>
+</tr>
+</tbody>
+</table>
+<p>很不幸，剩下的优化原则都不是使用工具就能很好实现的。或许有人会辩驳：“我用某某工具可以实现脚本和样式表合并”。嗯，必须承认，使用工具进行资源合并并替换引用或许是一个不错的办法，但在大型web应用，这种方式有一些非常严重的缺陷，来看一个很熟悉的例子 ：</p>
+<p><img src="https://raw.githubusercontent.com/fouber/blog/master/assets/day0.png" alt="第一天"></p>
+<p>某个web产品页面有A、B、C三个资源</p>
+<p><img src="https://raw.githubusercontent.com/fouber/blog/master/assets/day1.png" alt="第二天"></p>
+<p>工程师根据“减少HTTP请求”的优化原则合并了资源</p>
+<p><img src="https://raw.githubusercontent.com/fouber/blog/master/assets/day2.png" alt="第三天"></p>
+<p>产品经理要求C模块按需出现，此时C资源已出现多余的可能</p>
+<p><img src="https://raw.githubusercontent.com/fouber/blog/master/assets/day3.png" alt="第四天"></p>
+<p>C模块不再需要了，注释掉吧！代码1秒钟搞定，但C资源通常不敢轻易剔除</p>
+<p><img src="https://raw.githubusercontent.com/fouber/blog/master/assets/day4.png?v" alt="后来"></p>
+<p>不知不觉中，性能优化变成了性能恶化……</p>
+<blockquote>
+<p>这个例子来自 <a href="http://velocity.oreilly.com.cn/2010/index.php?func=session&amp;name=%E9%9D%99%E6%80%81%E7%BD%91%E9%A1%B5%E8%B5%84%E6%BA%90%E7%9A%84%E7%AE%A1%E7%90%86%E5%92%8C%E4%BC%98%E5%8C%96" target="_blank" rel="external">Facebook静态网页资源的管理和优化@Velocity China 2010</a></p>
+</blockquote>
+<p>事实上，使用工具在线下进行静态资源合并是无法解决资源按需加载的问题的。如果解决不了按需加载，则必会导致资源的冗余；此外，线下通过工具实现的资源合并通常会使得资源加载和使用的分离，比如在页面头部或配置文件中写资源引用及合并信息，而用到这些资源的html组件写在了页面其他地方，这种书写方式在工程上非常容易引起维护不同步的问题，导致使用资源的代码删除了，引用资源的代码却还在的情况。因此，在工业上要实现资源合并至少要满足如下需求：</p>
+<ol>
+<li>确实能减少HTTP请求，这是基本要求（合并）</li>
+<li>在使用资源的地方引用资源（就近依赖），不使用不加载（按需）</li>
+<li>虽然资源引用不是集中书写的，但资源引用的代码最终还能出现在页面头部（css）或尾部（js）</li>
+<li>能够避免重复加载资源（去重）</li>
+</ol>
+<p>将以上要求综合考虑，不难发现，单纯依靠前端技术或者工具处理是很难达到这些理想要求的。</p>
+<p>接下来我会讲述一种新的模板架构设计，用以实现前面说到那些性能优化原则，同时满足工程开发和维护的需要，这种架构设计的核心思想就是：</p>
+<blockquote>
+<p>基于依赖关系表的静态资源管理系统与模块化框架设计</p>
+</blockquote>
+<p>考虑一段这样的页面代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"a.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"b.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"c.css"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module a <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module b <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module c <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>根据资源合并需求中的第二项，我们希望资源引用与使用能尽量靠近，这样将来维护起来会更容易一些，因此，理想的源码是：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"a.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module a <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"b.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module b <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"c.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module c <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>当然，把这样的页面直接送达给浏览器用户是会有严重的页面闪烁问题的，所以我们实际上仍然希望最终页面输出的结果还是如最开始的截图一样，将css放在头部输出。这就意味着，页面结构需要有一些调整，并且有能力收集资源加载需求，那么我们考虑一下这样的源码（以php为例）：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;title&gt;page&lt;/title&gt;</div><div class="line">    &lt;!--[ CSS LINKS PLACEHOLDER ]--&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    <span class="meta">&lt;?php</span> require_static(<span class="string">'a.css'</span>); <span class="meta">?&gt;</span></div><div class="line">    &lt;div&gt; content of module a &lt;/div&gt;</div><div class="line">    </div><div class="line">    <span class="meta">&lt;?php</span> require_static(<span class="string">'b.css'</span>); <span class="meta">?&gt;</span></div><div class="line">    &lt;div&gt; content of module b &lt;/div&gt;</div><div class="line">    </div><div class="line">    <span class="meta">&lt;?php</span> require_static(<span class="string">'c.css'</span>); <span class="meta">?&gt;</span></div><div class="line">    &lt;div&gt; content of module c &lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>在页面的头部插入一个html注释 <code>&lt;!--[CSS LINKS PLACEHOLDER]--&gt;</code> 作为占位，而将原来字面书写的资源引用改成模板接口 <code>require_static</code> 调用，该接口负责收集页面所需资源。</p>
+<p>require_static接口实现非常简单，就是准备一个数组，收集资源引用，并且可以去重。最后在页面输出的前一刻，我们将require_static在运行时收集到的 <code>a.css</code>、<code>b.css</code>、<code>c.css</code> 三个资源拼接成html标签，替换掉注释占位 <code>&lt;!--[CSS LINKS PLACEHOLDER]--&gt;</code>，从而得到我们需要的页面结构。</p>
+<p>经过实践总结，可以发现模板层面只要实现三个开发接口，就可以比较完美的实现目前遗留的大部分性能优化原则，这三个接口分别是：</p>
+<ol>
+<li>require_static(res_id)：收集资源加载需求的接口，参数是静态资源id。</li>
+<li>load_widget(wiget_id)：加载拆分成小组件模板的接口。你可以叫它为widget、component或者pagelet之类的。总之，我们需要一个接口把一个大的页面模板拆分成一个个的小部分来维护，最后在原来的页面中以组件为单位来加载这些小部件。</li>
+<li>script(code)：收集写在模板中的js脚本，使之出现的页面底部，从而实现性能优化原则中的 <code>将js放在页面底部</code> 原则。</li>
+</ol>
+<p>实现了这些接口之后，一个重构后的模板页面的源代码可能看起来就是这样的了：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;title&gt;page&lt;/title&gt;</div><div class="line">    <span class="meta">&lt;?php</span> require_static(<span class="string">'jquery.js'</span>); <span class="meta">?&gt;</span></div><div class="line">    <span class="meta">&lt;?php</span> require_static(<span class="string">'bootstrap.css'</span>); <span class="meta">?&gt;</span></div><div class="line">    <span class="meta">&lt;?php</span> require_static(<span class="string">'bootstrap.js'</span>); <span class="meta">?&gt;</span></div><div class="line">    &lt;!--[ CSS LINKS PLACEHOLDER ]--&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    <span class="meta">&lt;?php</span> load_widget(<span class="string">'a'</span>); <span class="meta">?&gt;</span></div><div class="line">    <span class="meta">&lt;?php</span> load_widget(<span class="string">'b'</span>); <span class="meta">?&gt;</span></div><div class="line">    <span class="meta">&lt;?php</span> load_widget(<span class="string">'c'</span>); <span class="meta">?&gt;</span></div><div class="line">    &lt;!--[ SCRIPTS PLACEHOLDER ]--&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>而最终在模板解析的过程中，资源收集与去重、页面script收集、占位符替换操作，最终从服务端发送出来的html代码为：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"bootstrap.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"a.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"b.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"c.css"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module a <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module b <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module c <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"jquery.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"bootstrap.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"a.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"b.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"c.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>不难看出，我们目前已经实现了 <code>按需加载</code>，<code>将脚本放在底部</code>，<code>将样式表放在头部</code> 三项优化原则。</p>
+<p>前面讲到静态资源在上线后需要添加hash戳作为版本标识，那么这种使用模板语言来收集的静态资源该如何实现这项功能呢？</p>
+<blockquote>
+<p>答案是：静态资源依赖关系表。</p>
+</blockquote>
+<p>考虑这样的目录结构：</p>
+<pre><code>project
+    ├── widget
+    │   ├── a
+    │   │   ├── a.css
+    │   │   ├── a.js
+    │   │   └── a.php
+    │   ├── b
+    │   │   ├── b.css
+    │   │   ├── b.js
+    │   │   └── b.php
+    │   └── c
+    │       ├── c.css
+    │       ├── c.js
+    │       └── c.php
+    ├── bootstrap.css
+    ├── bootstrap.js
+    ├── index.php
+    └── jquery.js
+</code></pre><p>如果我们可以使用工具扫描整个project目录，然后创建一张资源表，同时记录每个资源的部署路径，得到这样的一张表：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"res"</span> : &#123;</div><div class="line">        <span class="attr">"widget/a/a.css"</span> : <span class="string">"/widget/a/a_1688c82.css"</span>,</div><div class="line">        <span class="attr">"widget/a/a.js"</span>  : <span class="string">"/widget/a/a_ac3123s.js"</span>,</div><div class="line">        <span class="attr">"widget/b/b.css"</span> : <span class="string">"/widget/b/b_52923ed.css"</span>,</div><div class="line">        <span class="attr">"widget/b/b.js"</span>  : <span class="string">"/widget/b/b_a5cd123.js"</span>,</div><div class="line">        <span class="attr">"widget/c/c.css"</span> : <span class="string">"/widget/c/c_03cab13.css"</span>,</div><div class="line">        <span class="attr">"widget/c/c.js"</span>  : <span class="string">"/widget/c/c_bf0ae3f.js"</span>,</div><div class="line">        <span class="attr">"jquery.js"</span>      : <span class="string">"/jquery_9151577.js"</span>,</div><div class="line">        <span class="attr">"bootstrap.css"</span>  : <span class="string">"/bootstrap_f5ba12d.css"</span>,</div><div class="line">        <span class="attr">"bootstrap.js"</span>   : <span class="string">"/bootstrap_a0b3ef9.js"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">"pkg"</span> : &#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>基于这张表，我们就很容易实现 <code>require_static(file_id)</code>，<code>load_widget(widget_id)</code> 这两个模板接口了。以load_widget为例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">load_widget</span><span class="params">($id)</span></span>&#123;</div><div class="line">    <span class="comment">//从json文件中读取资源表</span></div><div class="line">    $map = load_map();</div><div class="line">    <span class="comment">//查找静态资源</span></div><div class="line">    $filename = <span class="string">'widget/'</span> . $id . <span class="string">'/'</span> . $id;</div><div class="line">    <span class="comment">//查找js文件</span></div><div class="line">    $js = $filename . <span class="string">'.js'</span>;</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($map[<span class="string">'res'</span>][$js])) &#123;</div><div class="line">        <span class="comment">//如果有对应的js资源，就收集起来</span></div><div class="line">        collect_js_static($map[<span class="string">'res'</span>][$js]);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//查找css文件</span></div><div class="line">    $css = $filename . <span class="string">'.css'</span>;</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($map[<span class="string">'res'</span>][$css])) &#123;</div><div class="line">        <span class="comment">//如果有对应的css资源，就收集起来</span></div><div class="line">        collect_css_static($map[<span class="string">'res'</span>][$css]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">include</span> $filename . <span class="string">'.php'</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>利用查表来解决md5戳的问题，这样，我们的页面最终送达给用户的结果就是这样的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"/bootstrap_f5ba12d.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"/widget/a/a_1688c82.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"/widget/b/b_52923ed.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"/widget/c/c_03cab13.css"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module a <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module b <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module c <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/jquery_9151577.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/bootstrap_a0b3ef9.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/widget/a/a_ac3123s.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/widget/b/b_a5cd123.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/widget/c/c_bf0ae3f.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>接下来，我们讨论基于表的设计思想上是如何实现静态资源合并的。或许有些团队使用过combo服务，也就是我们在最终拼接生成页面资源引用的时候，并不是生成多个独立的link标签，而是将资源地址拼接成一个url路径，请求一种线上的动态资源合并服务，从而实现减少HTTP请求的需求，比如前面的例子，稍作调整即可得到这样的结果：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"/??bootstrap_f5ba12d.css,widget/a/a_1688c82.css,widget/b/b_52923ed.css,widget/c/c_03cab13.css"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module a <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module b <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module c <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/??jquery_9151577.js,bootstrap_a0b3ef9.js,widget/a/a_ac3123s.js,widget/b/b_a5cd123.js,widget/c/c_bf0ae3f.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这个 <code>/??file1,file2,file3,…</code> 的url请求响应就是动态combo服务提供的，它的原理很简单，就是根据url找到对应的多个文件，合并成一个文件来响应请求，并将其缓存，以加快访问速度。</p>
+<p>这种方法很巧妙，有些服务器甚至直接集成了这类模块来方便的开启此项服务，这种做法也是大多数大型web应用的资源合并做法。但它也存在一些缺陷：</p>
+<ol>
+<li>浏览器有url长度限制，因此不能无限制的合并资源。</li>
+<li>如果用户在网站内有公共资源的两个页面间跳转访问，由于两个页面的combo的url不一样导致用户不能利用浏览器缓存来加快对公共资源的访问速度。</li>
+<li>如果combo的url中任何一个文件发生改变，都会导致整个url缓存失效，从而导致浏览器缓存利用率降低。</li>
+</ol>
+<p>对于上述第二条缺陷，可以举个例子来看说明：</p>
+<ul>
+<li>假设网站有两个页面A和B</li>
+<li>A页面使用了a，b，c，d四个资源</li>
+<li>B页面使用了a，b，e，f四个资源</li>
+<li>如果使用combo服务，我们会得：<ul>
+<li>A页面的资源引用为：/??<code>a,b,c,d</code></li>
+<li>B页面的资源引用为：/??<code>a,b,e,f</code></li>
+</ul>
+</li>
+<li>两个页面引用的资源是不同的url，因此浏览器会请求两个合并后的资源文件，跨页面访问没能很好的利用a、b这两个资源的缓存。</li>
+</ul>
+<p>很明显，如果combo服务能聪明的知道A页面使用的资源引用为 /??<code>a,b</code> 和 /??<code>c,d</code>，而B页面使用的资源引用为 /??<code>a,b</code> 和 /??<code>e,f</code>就好了。这样当用户在访问A页面之后再访问B页面时，只需要下载B页面的第二个combo文件即可，第一个文件已经在访问A页面时缓存好了的。</p>
+<p>基于这样的思考，我们在资源表上新增了一个字段，取名为 <code>pkg</code>，就是资源合并生成的新资源，表的结构会变成：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"res"</span> : &#123;</div><div class="line">        <span class="attr">"widget/a/a.css"</span> : <span class="string">"/widget/a/a_1688c82.css"</span>,</div><div class="line">        <span class="attr">"widget/a/a.js"</span>  : <span class="string">"/widget/a/a_ac3123s.js"</span>,</div><div class="line">        <span class="attr">"widget/b/b.css"</span> : <span class="string">"/widget/b/b_52923ed.css"</span>,</div><div class="line">        <span class="attr">"widget/b/b.js"</span>  : <span class="string">"/widget/b/b_a5cd123.js"</span>,</div><div class="line">        <span class="attr">"widget/c/c.css"</span> : <span class="string">"/widget/c/c_03cab13.css"</span>,</div><div class="line">        <span class="attr">"widget/c/c.js"</span>  : <span class="string">"/widget/c/c_bf0ae3f.js"</span>,</div><div class="line">        <span class="attr">"jquery.js"</span>      : <span class="string">"/jquery_9151577.js"</span>,</div><div class="line">        <span class="attr">"bootstrap.css"</span>  : <span class="string">"/bootstrap_f5ba12d.css"</span>,</div><div class="line">        <span class="attr">"bootstrap.js"</span>   : <span class="string">"/bootstrap_a0b3ef9.js"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">"pkg"</span> : &#123;</div><div class="line">        <span class="attr">"p0"</span> : &#123;</div><div class="line">            <span class="attr">"url"</span> : <span class="string">"/pkg/lib_cef213d.js"</span>,</div><div class="line">            <span class="attr">"has"</span> : [ <span class="string">"jquery.js"</span>, <span class="string">"bootstrap.js"</span> ]</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">"p1"</span> : &#123;</div><div class="line">            <span class="attr">"url"</span> : <span class="string">"/pkg/lib_afec33f.css"</span>,</div><div class="line">            <span class="attr">"has"</span> : [ <span class="string">"bootstrap.css"</span> ]</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">"p2"</span> : &#123;</div><div class="line">            <span class="attr">"url"</span> : <span class="string">"/pkg/widgets_22feac1.js"</span>,</div><div class="line">            <span class="attr">"has"</span> : [</div><div class="line">                <span class="string">"widget/a/a.js"</span>,</div><div class="line">                <span class="string">"widget/b/b.js"</span>,</div><div class="line">                <span class="string">"widget/c/c.js"</span></div><div class="line">            ]</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">"p3"</span> : &#123;</div><div class="line">            <span class="attr">"url"</span> : <span class="string">"/pkg/widgets_af23ce5.css"</span>,</div><div class="line">            <span class="attr">"has"</span> : [</div><div class="line">                <span class="string">"widget/a/a.css"</span>,</div><div class="line">                <span class="string">"widget/b/b.css"</span>,</div><div class="line">                <span class="string">"widget/c/c.css"</span></div><div class="line">            ]</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>相比之前的表，可以看到新表中多了一个pkg字段，并且记录了打包后的文件所包含的独立资源。这样，我们重新设计一下 require_static、load_widget 这两个模板接口，实现这样的逻辑：</p>
+<blockquote>
+<p>在查表的时候，如果一个静态资源有pkg字段，那么就去加载pkg字段所指向的打包文件，否则加载资源本身。</p>
+</blockquote>
+<p>比如执行<code>require_static(&#39;bootstrap.js&#39;)</code>，查表得知bootstrap.js被打包在了<code>p1</code>中，因此取出p1包的url <code>/pkg/lib_cef213d.js</code>，并且记录页面已加载了 <code>jquery.js</code> 和  <code>bootstrap.js</code> 两个资源。这样一来，之前的模板代码执行之后得到的html就变成了：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"/pkg/lib_afec33f.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"/pkg/widgets_af23ce5.css"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module a <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module b <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module c <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/pkg/lib_cef213d.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/pkg/widgets_22feac1.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>虽然这种策略请求有4个，不如combo形式的请求少，但可能在统计上是性能更好的方案。由于两个lib打包的文件修改的可能性很小，因此这两个请求的缓存利用率会非常高，每次项目发布后，用户需要重新下载的静态资源可能要比combo请求节省很多带宽。</p>
+<blockquote>
+<p>性能优化既是一个工程问题，又是一个统计问题。优化性能时如果只关注一个页面的首次加载是很片面的。还应该考虑全站页面间跳转、项目迭代后更新资源等情况下的优化策略。</p>
+</blockquote>
+<p>此时，我们又引入了一个新的问题：如何决定哪些文件被打包？</p>
+<p>从经验来看，项目初期可以采用人工配置的方式来指定打包情况，比如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"pack"</span> : &#123;</div><div class="line">        <span class="attr">"lib.js"</span>      : [ <span class="string">"jquery.js"</span>, <span class="string">"bootstrap.js"</span> ],</div><div class="line">        <span class="attr">"lib.css"</span>     : <span class="string">"bootstrap.css"</span>,</div><div class="line">        <span class="attr">"widgets.js"</span>  : <span class="string">"widget/**.js"</span>,</div><div class="line">        <span class="attr">"widgets.css"</span> : <span class="string">"widget/**.css"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但随着系统规模的增大，人工配置会带来非常高的维护成本，此时需要一个辅助系统，通过分析线上访问日志和静态资源组合加载情况来自动生成这份配置文件，系统设计如图：</p>
+<p><img src="https://raw.githubusercontent.com/fouber/blog/master/assets/log.png" alt="静态资源分析系统"></p>
+<p>至此，我们通过基于表的静态资源管理系统和三个模板接口实现了几个重要的性能优化原则，现在我们再来回顾一下前面的性能优化原则分类表，剔除掉已经做到了的，看看还剩下哪些没做到的：</p>
+<table>
+<thead>
+<tr>
+<th>优化方向</th>
+<th>优化手段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>请求数量</td>
+<td>拆分初始化负载</td>
+</tr>
+<tr>
+<td>缓存利用</td>
+<td>使Ajax可缓存</td>
+</tr>
+<tr>
+<td>页面结构</td>
+<td>尽早刷新文档的输出</td>
+</tr>
+</tbody>
+</table>
+<p><code>拆分初始化负载</code> 的目标是将页面一开始加载时不需要执行的资源从所有资源中分离出来，等到需要的时候再加载。工程师通常没有耐心去区分资源的分类情况，但我们可以利用组件化框架接口来帮助工程师管理资源的使用。还是从例子开始思考，如果我们有一个js文件是用户交互后才需要加载的，会怎样呢：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;title&gt;page&lt;/title&gt;</div><div class="line">    <span class="meta">&lt;?php</span> require_static(<span class="string">'jquery.js'</span>); <span class="meta">?&gt;</span></div><div class="line">    <span class="meta">&lt;?php</span> require_static(<span class="string">'bootstrap.css'</span>); <span class="meta">?&gt;</span></div><div class="line">    <span class="meta">&lt;?php</span> require_static(<span class="string">'bootstrap.js'</span>); <span class="meta">?&gt;</span></div><div class="line">    &lt;!--[ CSS LINKS PLACEHOLDER ]--&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    <span class="meta">&lt;?php</span> load_widget(<span class="string">'a'</span>); <span class="meta">?&gt;</span></div><div class="line">    <span class="meta">&lt;?php</span> load_widget(<span class="string">'b'</span>); <span class="meta">?&gt;</span></div><div class="line">    <span class="meta">&lt;?php</span> load_widget(<span class="string">'c'</span>); <span class="meta">?&gt;</span></div><div class="line">    </div><div class="line">    <span class="meta">&lt;?php</span> script(<span class="string">'start'</span>); <span class="meta">?&gt;</span></div><div class="line">    &lt;script&gt;</div><div class="line">        $(document.body).click(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="keyword">require</span>.async(<span class="string">'dialog.js'</span>, <span class="function"><span class="keyword">function</span><span class="params">(dialog)</span></span>&#123;</div><div class="line">                dialog.show(<span class="string">'you catch me!'</span>);</div><div class="line">            &#125;);</div><div class="line">        &#125;);</div><div class="line">    &lt;/script&gt;</div><div class="line">    <span class="meta">&lt;?php</span> script(<span class="string">'end'</span>); <span class="meta">?&gt;</span></div><div class="line">    </div><div class="line">    &lt;!--[ SCRIPTS PLACEHOLDER ]--&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>很明显，<code>dialog.js</code> 这个文件我们不需要在初始化的时候就加载，因此它应该在后续的交互中再加载，但文件都加了md5戳，我们如何能在浏览器环境中知道加载的url呢？</p>
+<blockquote>
+<p>答案就是：把静态资源表的一部分输出在页面上，供前端模块化框架加载静态资源。</p>
+</blockquote>
+<p>我就不多解释代码的执行过程了，大家看到完整的html输出就能理解是怎么回事了：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"/pkg/lib_afec33f.css"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"/pkg/widgets_af23ce5.css"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module a <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module b <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> content of module c <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/pkg/lib_cef213d.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/pkg/widgets_22feac1.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line">        //将静态资源表输出在前端页面中</div><div class="line">        require.config(&#123;</div><div class="line">            res : &#123;</div><div class="line">                'dialog.js' : '/dialog_fa3df03.js'</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line">        $(document.body).click(function()&#123;</div><div class="line">            //require.async接口查表确定加载资源的url</div><div class="line">            require.async('dialog.js', function(dialog)&#123;</div><div class="line">                dialog.show('you catch me!');</div><div class="line">            &#125;);</div><div class="line">        &#125;);</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>dialog.js不会在页面以script src的形式输出，而是变成了资源注册，这样，当页面点击触发require.async执行的时候，async函数才会查表找到资源的url并加载它，加载完毕后触发回调函数。</p>
+<blockquote>
+<p>以上框架示例我实现了一个java版（ <a href="https://github.com/fouber/fis-java-jsp" target="_blank" rel="external">https://github.com/fouber/fis-java-jsp</a> ）和一个php版（ <a href="https://github.com/fouber/static-resource-management-system-demo" target="_blank" rel="external">https://github.com/fouber/static-resource-management-system-demo</a> ）的示例项目，有兴趣的同学可以参考一下，比阅读文章要更直观一些。</p>
+</blockquote>
+<p>到目前为止，我们又以架构的形式实现了一项优化原则（拆分初始化负载），回顾我们的优化分类表，现在仅有两项没能做到了：</p>
+<table>
+<thead>
+<tr>
+<th>优化方向</th>
+<th>优化手段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>缓存利用</td>
+<td>使Ajax可缓存</td>
+</tr>
+<tr>
+<td>页面结构</td>
+<td>尽早刷新文档的输出</td>
+</tr>
+</tbody>
+</table>
+<p>剩下的两项优化原则要做到并不容易，真正可缓存的Ajax在现实开发中比较少见，而 <code>尽早刷新文档的输出</code> 原则facebook在2010年的velocity上 <a href="http://velocity.oreilly.com.cn/2010/index.php?func=session&amp;name=Facebook%E7%BD%91%E7%AB%99%E7%9A%84Ajax%E5%8C%96%E3%80%81%E7%BC%93%E5%AD%98%E5%92%8C%E6%B5%81%E6%B0%B4%E7%BA%BF" target="_blank" rel="external">提到过</a>，就是BigPipe技术。当时facebook团队还讲到了Quickling和PageCache两项技术，其中的PageCache算是比较彻底的实现Ajax可缓存的优化原则了。由于篇幅关系，就不在此展开了，后续还会撰文详细解读这两项技术。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实在前端开发工程管理领域还有很多细节值得探索和挖掘，提升前端团队生产力水平并不是一句空话，它需要我们能对前端开发及代码运行有更深刻的认识，对性能优化原则有更细致的分析与研究。在前端工业化开发的所有环节均有可节省的人力成本，这些成本非常可观，相信现在很多大型互联网公司也都有了这样的共识。</p>
+<p>本文只是将这个领域中很小的一部分知识的展开讨论，抛砖引玉，希望能为业界相关领域的工作者提供一些不一样的思路。</p>
+<p>原文地址:<a href="https://github.com/fouber/blog/issues/3" target="_blank" rel="external">https://github.com/fouber/blog/issues/3</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      前端工程与性能优化
+    
+    </summary>
+    
+      <category term="前端" scheme="http://hifor.net/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="前端" scheme="http://hifor.net/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="性能" scheme="http://hifor.net/tags/%E6%80%A7%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>零基础免费搭建个人博客-hexo+github</title>
+    <link href="http://hifor.net/2015/07/01/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-hexo-github/"/>
+    <id>http://hifor.net/2015/07/01/零基础免费搭建个人博客-hexo-github/</id>
+    <published>2015-07-01T08:36:46.000Z</published>
+    <updated>2016-01-27T06:52:37.013Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701000.png" alt=""><br>使用hexo生成静态博客并架设在免费的github page平台<br><a id="more"></a></p>
+<p>##准备<br>系统:</p>
+<ul>
+<li>Window 7 64位</li>
+</ul>
+<p>使用软件:</p>
+<ul>
+<li>Git v1.9.5<br>[下载地址] <a href="http://pan.baidu.com/s/1c0rroje" target="_blank" rel="external">百度云</a> <a href="http://yunpan.cn/cQbXP6aytfC4w" target="_blank" rel="external">360云盘 访问密码 d269</a> <a href="http://git-scm.com/download/" target="_blank" rel="external">Git官网</a></li>
+<li>Node.js v0.12.5 x64<br>[下载地址] <a href="http://pan.baidu.com/s/1o6opb9g" target="_blank" rel="external">百度云</a> <a href="http://yunpan.cn/cQbGMDsq7DruS" target="_blank" rel="external">360云盘 访问密码 608f</a> <a href="https://nodejs.org/download/" target="_blank" rel="external">node.js官网</a><br>32位或64位按自己电脑的系统来选择，如果不清楚，可以直接在官网下载32位的，可以兼容64位系统</li>
+</ul>
+<p>备注:<br>不同软件版本的安装与使用会有差异，请尽量与本教程保持一致</p>
+<p>##安装Git</p>
+<ul>
+<li>大部分按默认安装，一路点击”Next”<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701001.png" alt=""></li>
+<li>这里选择对应的windows选项，如下图<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701006.png" alt=""><br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701007.png" alt=""></li>
+<li>等待安装完成<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701008.png" alt=""></li>
+</ul>
+<p>##安装Node.js</p>
+<ul>
+<li>Node安装更加简单，还是一路”Next”,最后等待安装完成即可<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701010.png" alt=""><br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701015.png" alt=""></li>
+</ul>
+<p>##验证软件正确安装</p>
+<ul>
+<li><p>同时按下Win键和R键（或者点击“开始菜单”-&gt;点击“运行”）,打开运行窗口,输入“cmd”<br>然后输入以下命令，结果与下图相同则说明安装正确，若不正确可以卸载软件重新安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git --version</div><div class="line">node -v</div><div class="line">npm -v</div></pre></td></tr></table></figure>
+<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701016.png" alt=""></p>
+</li>
+</ul>
+<p>##申请GitHub</p>
+<ul>
+<li>点击-&gt;<a href="https://github.com/" target="_blank" rel="external">GitHub</a>进入官网注册帐号</li>
+<li>按下图分别输入用户名、邮箱、密码，然后点击注册<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701017.png" alt=""></li>
+<li>按默认点击“Finish sign up”<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701018.png" alt=""></li>
+<li>点击”New repository”，新建一个版本库<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701019.png" alt=""></li>
+<li>输入Repository name:yourname.github.io(yourname与你的注册用户名一致,这个就是你博客的域名了)<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701020.png" alt=""><br>到此github帐号申请完成<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701021.png" alt=""></li>
+<li>启用GitHub Page<br>点击右边的“Setting”菜单进入设置,点击”Launch automatic page generator”<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701021-1.png" alt=""><br>点击底部的”Continue to layouts”<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701021-2.png" alt=""><br>最后点击”Publish page”,发布github默认生成的一个静态站点<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701021-3.png" alt=""></li>
+<li>验证邮箱<br>点击个人设置<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701021-4.png" alt=""><br>点击”Send verification Email”发送验证邮件<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701021-5.png" alt=""><br>进入你的邮箱，查收验证邮件进行验证<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701021-6.png" alt=""></li>
+</ul>
+<p>##安装Hexo<br>hexo是基于node.js的静态博客，<a href="https://hexo.io/zh-cn/" target="_blank" rel="external">官网</a>也是搭建在GitHub上</p>
+<ul>
+<li>在电脑上新建一个blog文件夹,该文件夹用于存放你的博客文件,然后右键单击选择“Git Bash”<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701022.png" alt=""></li>
+<li><p>大家估计都有被“墙”的经历，安装hexo为了避免出现类似情况，我使用<a href="http://npm.taobao.org/" target="_blank" rel="external">淘宝NPM镜像</a>,输入以下命令等待安装完成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g cnpm --registry=https://registry.npm.taobao.org</div></pre></td></tr></table></figure>
+<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701023.png" alt=""></p>
+</li>
+<li><p>使用淘宝NPM安装Hexo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cnpm install -g hexo-cli</div></pre></td></tr></table></figure>
+<p>与原先的npm完全一样，只是命令改为cnpm,一样等待hexo安装完成<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701024.png" alt=""><br>出现的WARN可以不用理会<br>继续输入以下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cnpm install hexo --save</div></pre></td></tr></table></figure>
+<p>安装完成后，在输入命令，验证是否安装正确</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo -v</div></pre></td></tr></table></figure>
+<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701025.png" alt=""></p>
+</li>
+</ul>
+<p>##本地运行hexo</p>
+<ul>
+<li><p>初始化hexo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo init</div></pre></td></tr></table></figure>
+<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701026.png" alt=""></p>
+</li>
+<li><p>安装生成器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cnpm install</div></pre></td></tr></table></figure>
+<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701027.png" alt=""></p>
+</li>
+<li><p>运行hexo,以后要在本地运行博客只要输入该命令即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo s -g</div></pre></td></tr></table></figure>
+<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701028.png" alt=""><br>打开浏览器，输入localhost:4000,就可以在本地看到你的个人博客了<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701029.png" alt=""></p>
+</li>
+<li>停止运行<br>按住Ctrl+C键即可停止</li>
+</ul>
+<p>##管理博客</p>
+<ul>
+<li><p>配置信息<br>使用<a href="http://pan.baidu.com/s/1pJFruER" target="_blank" rel="external">Sublime_Text</a>编辑器（绿色软件无需安装，解压即可使用）打开blog/_config.yml文件，进行配置<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701030.png" alt=""></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#博客名称</span></div><div class="line">title: 我的博客</div><div class="line"><span class="comment">#副标题</span></div><div class="line">subtitle: 一天进步一点</div><div class="line"><span class="comment">#简介</span></div><div class="line">description: 记录生活点滴</div><div class="line"><span class="comment">#博客作者</span></div><div class="line">author: John Doe</div><div class="line"><span class="comment">#博客语言</span></div><div class="line">language: zh-CN</div><div class="line"><span class="comment">#时区</span></div><div class="line">timezone:</div><div class="line"></div><div class="line"><span class="comment">#博客地址,与申请的GitHub一致</span></div><div class="line">url: http://elfwalk.github.io</div><div class="line">root: /</div><div class="line"><span class="comment">#博客链接格式</span></div><div class="line">permalink: :year/:month/:day/:title/</div><div class="line">permalink_defaults:</div><div class="line"></div><div class="line">source_dir: <span class="built_in">source</span></div><div class="line">public_dir: public</div><div class="line">tag_dir: tags</div><div class="line">archive_dir: archives</div><div class="line">category_dir: categories</div><div class="line">code_dir: downloads/code</div><div class="line">i18n_dir: :lang</div><div class="line">skip_render:</div><div class="line"></div><div class="line">new_post_name: :title.md <span class="comment"># File name of new posts</span></div><div class="line">default_layout: post</div><div class="line">titlecase: <span class="literal">false</span> <span class="comment"># Transform title into titlecase</span></div><div class="line">external_link: <span class="literal">true</span> <span class="comment"># Open external links in new tab</span></div><div class="line">filename_case: 0</div><div class="line">render_drafts: <span class="literal">false</span></div><div class="line">post_asset_folder: <span class="literal">false</span></div><div class="line">relative_link: <span class="literal">false</span></div><div class="line">future: <span class="literal">true</span></div><div class="line">highlight:</div><div class="line">  <span class="built_in">enable</span>: <span class="literal">true</span></div><div class="line">  line_number: <span class="literal">true</span></div><div class="line">  auto_detect: <span class="literal">true</span></div><div class="line">  tab_replace:</div><div class="line"></div><div class="line">default_category: uncategorized</div><div class="line">category_map:</div><div class="line">tag_map:</div><div class="line"></div><div class="line"><span class="comment">#日期格式</span></div><div class="line">date_format: YYYY-MM-DD</div><div class="line">time_format: HH:mm:ss</div><div class="line"></div><div class="line"><span class="comment">#分页，每页文章数量</span></div><div class="line">per_page: 10</div><div class="line">pagination_dir: page</div><div class="line"></div><div class="line"><span class="comment">#博客主题</span></div><div class="line">theme: landscape</div><div class="line"></div><div class="line"><span class="comment">#发布设置</span></div><div class="line">deploy: </div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  <span class="comment">#elfwalk改为你的github用户名</span></div><div class="line">  repository: https://github.com/elfwalk/elfwalk.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+</li>
+<li><p>写一篇文章<br>输入创建文章命令，生成一个md文件(/blog/source/_posts/)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"hello"</span></div></pre></td></tr></table></figure>
+<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701031.png" alt=""><br>用编辑器打开hello.md文件,编写完后保存</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">title: hello</div><div class="line">date: 2015-07-01 22:37:23</div><div class="line">categories:</div><div class="line">  - 日志</div><div class="line">  - 二级目录</div><div class="line">tags:</div><div class="line">  - hello</div><div class="line">---</div><div class="line"></div><div class="line">摘要:</div><div class="line">&lt;!--more--&gt;</div><div class="line">正文:</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="发布博客"><a href="#发布博客" class="headerlink" title="发布博客"></a>发布博客</h2><h3 id="配置SSH-keys"><a href="#配置SSH-keys" class="headerlink" title="配置SSH keys"></a>配置SSH keys</h3><p>我们如何让本地git项目与远程的github建立联系呢？用SSH keys。</p>
+<ul>
+<li><p>生成新的SSH Key：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C <span class="string">"邮件地址@youremail.com"</span></div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/Users/your_user_directory/.ssh/id_rsa):&lt;直接回车&gt;</div></pre></td></tr></table></figure>
+<p>注意1: 此处的邮箱地址，你可以输入自己的邮箱地址；<br>注意2: 此处的「-C」的是大写的「C」<br>然后系统会要你输入密码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):&lt;输入加密串&gt;</div><div class="line">Enter same passphrase again:&lt;再次输入加密串&gt;</div></pre></td></tr></table></figure>
+<p>在回车中会提示你输入一个密码，这个密码会在你提交项目时使用，如果为空的话提交项目时则不用输入。这个设置是防止别人往你的项目里提交内容。<br>注意：输入密码的时候没有*字样的，你直接输入就可以了。<br>最后看到这样的界面，就成功设置ssh key了：<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20160127/hexo20160127001.png" alt=""></p>
+</li>
+<li><p>添加SSH Key到GitHub<br>在本机设置SSH Key之后，需要添加到GitHub上，以完成SSH链接的设置。<br>1、打开本地C:\Documents and Settings\Administrator.ssh\id_rsa.pub文件。此文件里面内容为刚才生成人密钥。如果看不到这个文件，你需要设置显示隐藏文件。准确的复制这个文件的内容，才能保证设置的成功。<br>2、登陆github系统。点击右上角的 Account Settings—&gt;SSH Public keys —&gt; add another public keys<br>3、把你本地生成的密钥复制到里面（key文本框中）， 点击 add key 就ok了</p>
+</li>
+</ul>
+<h3 id="设置git身份信息"><a href="#设置git身份信息" class="headerlink" title="设置git身份信息"></a>设置git身份信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name <span class="string">"你的用户名"</span></div><div class="line">$ git config --global user.email <span class="string">"你的邮箱"</span></div></pre></td></tr></table></figure>
+<p>  <img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701032.png" alt=""></p>
+<ul>
+<li><p>安装hexo git插件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cnpm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
+<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701033.png" alt=""></p>
+</li>
+<li><p>发布更新博客</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo d -g</div></pre></td></tr></table></figure>
+<p>发布时需要输入github的帐号和密码，输入密码时是看不到自己输入的内容的<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150701/hexo20150701034.png" alt=""><br>发布成功后，访问yourname.github.io看下成果</p>
+</li>
+</ul>
+<p>原文地址:<a href="http://hifor.net/2015/07/01/零基础免费搭建个人博客-hexo-github">http://hifor.net/2015/07/01/零基础免费搭建个人博客-hexo-github</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      使用hexo在github平台免费搭建个人博客
+    
+    </summary>
+    
+      <category term="blog" scheme="http://hifor.net/categories/blog/"/>
+    
+    
+      <category term="blog" scheme="http://hifor.net/tags/blog/"/>
+    
+      <category term="hexo" scheme="http://hifor.net/tags/hexo/"/>
+    
+      <category term="github" scheme="http://hifor.net/tags/github/"/>
+    
+      <category term="git" scheme="http://hifor.net/tags/git/"/>
+    
+      <category term="node.js" scheme="http://hifor.net/tags/node-js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>开源Asp.net CMS mojoPortal-源码运行</title>
+    <link href="http://hifor.net/2015/05/31/cms-mojoPortal/"/>
+    <id>http://hifor.net/2015/05/31/cms-mojoPortal/</id>
+    <published>2015-05-31T12:48:55.000Z</published>
+    <updated>2015-06-28T14:04:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150627/mojoPortal/0.png" alt=""></p>
+<p>##1、下载mojoPortal源码<br>下载地址:<a href="http://mojoportal.codeplex.com/SourceControl/latest" target="_blank" rel="external">http://mojoportal.codeplex.com/SourceControl/latest</a><br>我下载的版本是：2.4.0.9 MSSQL<br><a id="more"></a><br>以下是mojoPortal项目结构<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150627/mojoPortal/1.jpg" alt=""></p>
+<p>##2、还原NuGet程序包,因为包都在国外服务器，经常出现“还原失败”，这是连接不上的原因，多还原几次即可<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150627/mojoPortal/2.jpg" alt=""><br>安装成功:<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150627/mojoPortal/3.jpg" alt=""></p>
+<p>##3、建立MSSQL数据库，配置MSSQL数据库连接参数<br>新建MSSQL数据库：mojoportal<br>打开Web.config文件（在mojoPortal.Web启动项目下）<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150627/mojoPortal/4.png" alt=""></p>
+<p>##4、运行mojoPortal.Web\Setup\Default.aspx 自动安装mojoPortal<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150627/mojoPortal/5.png" alt=""><br>等待安装完成…</p>
+<p>##5、安装成功后进入首页，登录后进入后台管理<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150627/mojoPortal/6.jpg" alt=""><br>点击登录，用户名:admin@admin.com 密码:admin<br>登录成功后，管理菜单在底部<br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150627/mojoPortal/7.png" alt=""><br><img src="http://7xjzgy.com1.z0.glb.clouddn.com/image/20150627/mojoPortal/8.png" alt=""><br>到此源码运行结束</p>
+<p>##备注:<br>运行环境<br>Win7系统+VS2013+MSSQL2008</p>
+<p>原文地址:<a href="http://hifor.net/2015/05/31/cms-mojoPortal/">http://hifor.net/2015/05/31/cms-mojoPortal/</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      开源Asp.net CMS mojoPortal-源码运行
+    
+    </summary>
+    
+      <category term="asp.net" scheme="http://hifor.net/categories/asp-net/"/>
+    
+    
+      <category term="asp.net" scheme="http://hifor.net/tags/asp-net/"/>
+    
+      <category term="cms" scheme="http://hifor.net/tags/cms/"/>
+    
+      <category term="mojoPortal" scheme="http://hifor.net/tags/mojoPortal/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Goagent最新可用IP</title>
+    <link href="http://hifor.net/2015/05/18/goagent-ip/"/>
+    <id>http://hifor.net/2015/05/18/goagent-ip/</id>
+    <published>2015-05-18T02:25:33.000Z</published>
+    <updated>2015-07-01T00:24:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>不定时更新</p>
+<p>Goagent 最新可用IP，IP 是有时效性的，可能几天或一二个月后就会被GFW屏蔽<br>可以使用GoGoTester查找可用IP<br>[GoGoTester_v2.0.3.9] 下载地址：<a href="http://pan.baidu.com/s/1i3L8Mjz" target="_blank" rel="external">http://pan.baidu.com/s/1i3L8Mjz</a> 密码：qlzv<br>[.NET Frameworks 4.0] 运行GoGoTester需要安装.net4.0框架，下载地址: <a href="http://pan.baidu.com/s/1pJxFYAZ" target="_blank" rel="external">http://pan.baidu.com/s/1pJxFYAZ</a> 密码：7bo0</p>
+<p>##2015-09-07更新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">64.233.162.84|64.233.162.86|74.125.127.17|74.125.127.83|74.125.127.106|</div><div class="line">173.194.70.17|173.194.70.19|173.194.70.91|173.194.70.93|173.194.70.101|</div><div class="line">173.194.70.116|173.194.70.120|173.194.70.164</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>##2015-08-30更新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">64.233.162.83|64.233.162.85|64.233.162.87|64.233.162.86|173.194.70.106|173.194.70.18|</div><div class="line">173.194.70.189|173.194.70.199|64.233.166.239</div></pre></td></tr></table></figure></p>
+<p>##2015-07-01更新<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">64.233.162.83|64.233.162.84|64.233.162.85|173.194.218.99|208.117.244.101|208.117.244.113|</div><div class="line">208.117.244.105|208.117.243.101|208.117.244.37|173.194.200.95|173.194.200.93|208.117.243.45|</div><div class="line">173.194.200.164|173.194.200.167|173.194.200.17|173.194.200.90|173.194.201.113|173.194.201.19|</div><div class="line">173.194.201.85|208.117.243.104|208.117.243.106|208.117.243.110|208.117.243.42|208.117.243.48|</div><div class="line">208.117.243.50|208.117.244.106|208.117.244.108|208.117.244.114|208.117.244.49|208.117.244.50|</div><div class="line">64.233.162.87|64.233.190.120|64.233.190.166|64.233.190.86|192.119.20.238|173.194.201.104</div></pre></td></tr></table></figure></p>
+<p>##2015-06-26更新<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">64.233.162.82|208.117.243.47|208.117.244.113|208.117.244.45|173.194.201.93|208.117.243.101|</div><div class="line">173.194.201.167|173.194.200.95|64.233.190.82|173.194.201.98|173.194.201.86|208.117.243.38|</div><div class="line">173.194.200.91|173.194.200.124|173.194.201.132|173.194.201.118|173.194.200.117|173.194.200.123|</div><div class="line">208.117.244.41|208.117.243.37|173.194.201.189|173.194.200.93|208.117.243.103|208.117.244.38|</div><div class="line">173.194.218.165|208.117.244.110|173.194.200.195</div></pre></td></tr></table></figure></p>
+<p>##2015-06-11更新<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">64.233.162.83|173.194.200.118|64.233.162.84|64.233.162.85|173.194.218.99</div></pre></td></tr></table></figure></p>
+<p>##2015-05-31更新<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">74.125.237.37|74.125.237.11|74.125.237.35|64.233.188.146|64.233.188.82|64.233.188.100</div></pre></td></tr></table></figure></p>
+<p>##2015-05-18更新<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">74.125.237.35|64.233.188.155|64.233.188.145|74.125.237.26|64.233.188.156|74.125.237.40|</div><div class="line">74.125.237.63|173.194.218.155|64.233.188.200|64.233.188.198|74.125.237.15|64.233.188.138|</div><div class="line">64.233.188.146|74.125.237.45|64.233.188.99|64.233.188.154|74.125.237.31|64.233.188.19|</div><div class="line">64.233.188.114|64.233.188.139|64.233.188.101|64.233.188.90|64.233.188.167|64.233.188.147|</div><div class="line">74.125.237.8|173.194.218.137|64.233.188.112|173.194.218.122|64.233.188.115|64.233.188.82|</div><div class="line">64.233.162.83|64.233.188.86|74.125.237.11|64.15.114.46|64.233.188.195|64.233.188.102|</div><div class="line">64.233.188.100|173.194.218.166|64.15.114.51|64.233.188.97|74.125.237.27|64.233.188.141|</div><div class="line">173.194.218.19|74.125.237.58|64.233.188.93|74.125.237.25|64.233.188.122|64.233.162.82</div></pre></td></tr></table></figure></p>
+<p>原文地址:<a href="http://hifor.net/2015/05/18/goagent-ip/">http://hifor.net/2015/05/18/goagent-ip/</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      Goagent 最新可用IP - 2015.7.1更新
+    
+    </summary>
+    
+      <category term="goagent" scheme="http://hifor.net/categories/goagent/"/>
+    
+    
+      <category term="goagent" scheme="http://hifor.net/tags/goagent/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx-启动/关闭/重启/检测 BAT批处理</title>
+    <link href="http://hifor.net/2014/12/03/nginx-bat/"/>
+    <id>http://hifor.net/2014/12/03/nginx-bat/</id>
+    <published>2014-12-03T08:48:59.000Z</published>
+    <updated>2015-06-28T17:37:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>nginx检测配置命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%NGINX_DIR%/nginx.exe -t</div></pre></td></tr></table></figure></p>
+<p>返回结果<br>nginx: the configuration file C:\nginx-1.1.5/conf/nginx.conf syntax is ok<br>nginx: configuration file C:\nginx-1.1.5/conf/nginx.conf test is successful</p>
+<p>可以把检测配置文件项放到Nginx操作的bat文件里，方便使用<br><a id="more"></a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">cls</div><div class="line">@ECHO OFF</div><div class="line">SET NGINX_PATH=C:</div><div class="line">SET NGINX_DIR=C:\nginx-1.1.5\</div><div class="line">color 0a</div><div class="line">TITLE Nginx管理程序</div><div class="line">GOTO MENU</div><div class="line">:MENU</div><div class="line">CLS</div><div class="line">ECHO.</div><div class="line">ECHO. * * * *  Nginx Management  * * *</div><div class="line">ECHO. *                                *</div><div class="line">ECHO. *   1 启动Nginx                  *</div><div class="line">ECHO. *                                *</div><div class="line">ECHO. *   2 关闭Nginx                  *</div><div class="line">ECHO. *                                *</div><div class="line">ECHO. *   3 重启Nginx                  *</div><div class="line">ECHO. *                                *</div><div class="line">ECHO. *   4 检查配置                   *</div><div class="line">ECHO. *                                *</div><div class="line">ECHO. *   5 退 出                      *</div><div class="line">ECHO. *                                *</div><div class="line">ECHO. * * * * * * * * * * * * * * * * *</div><div class="line">ECHO.</div><div class="line">ECHO.请输入命令编号:</div><div class="line"><span class="built_in">set</span> /p ID=</div><div class="line">IF <span class="string">"%id%"</span>==<span class="string">"1"</span> GOTO cmd1</div><div class="line">IF <span class="string">"%id%"</span>==<span class="string">"2"</span> GOTO cmd2</div><div class="line">IF <span class="string">"%id%"</span>==<span class="string">"3"</span> GOTO cmd3</div><div class="line">IF <span class="string">"%id%"</span>==<span class="string">"4"</span> GOTO cmd4</div><div class="line">IF <span class="string">"%id%"</span>==<span class="string">"5"</span> EXIT</div><div class="line">PAUSE</div><div class="line"></div><div class="line">:cmd1</div><div class="line">ECHO.</div><div class="line">ECHO.启动Nginx......</div><div class="line">IF NOT EXIST %NGINX_DIR%nginx.exe ECHO %NGINX_DIR%nginx.exe不存在</div><div class="line">%NGINX_PATH%</div><div class="line"><span class="built_in">cd</span> %NGINX_DIR%</div><div class="line">IF EXIST %NGINX_DIR% start %NGINX_DIR%nginx.exe</div><div class="line">ECHO.OK</div><div class="line">PAUSE</div><div class="line">GOTO MENU</div><div class="line"></div><div class="line">:cmd2</div><div class="line">ECHO.</div><div class="line">ECHO.关闭Nginx......</div><div class="line">taskkill /F /IM nginx.exe &gt; nul</div><div class="line">ECHO.OK</div><div class="line">PAUSE</div><div class="line">GOTO MENU</div><div class="line"></div><div class="line">:cmd3</div><div class="line">ECHO.</div><div class="line">ECHO.关闭Nginx......</div><div class="line">taskkill /F /IM nginx.exe &gt; nul</div><div class="line">ECHO.OK</div><div class="line">GOTO cmd1</div><div class="line">GOTO MENU</div><div class="line"></div><div class="line">:cmd4</div><div class="line">ECHO.</div><div class="line">ECHO.检查Nginx配置......</div><div class="line">IF NOT EXIST %NGINX_DIR%nginx.exe ECHO %NGINX_DIR%nginx.exe不存在</div><div class="line">%NGINX_PATH%</div><div class="line"><span class="built_in">cd</span> %NGINX_DIR%</div><div class="line">IF EXIST %NGINX_DIR% %NGINX_DIR%nginx.exe -t</div><div class="line">ECHO.完成检查</div><div class="line">PAUSE</div><div class="line">GOTO MENU</div></pre></td></tr></table></figure>
+<p>原文地址:<a href="http://hifor.net/2014/12/03/nginx-bat/">http://hifor.net/2014/12/03/nginx-bat/</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;nginx检测配置命令如下：&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;%NGINX_DIR%/nginx.exe -t&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;返回结果&lt;br&gt;nginx: the configuration file C:\nginx-1.1.5/conf/nginx.conf syntax is ok&lt;br&gt;nginx: configuration file C:\nginx-1.1.5/conf/nginx.conf test is successful&lt;/p&gt;
+&lt;p&gt;可以把检测配置文件项放到Nginx操作的bat文件里，方便使用&lt;br&gt;
+    
+    </summary>
+    
+      <category term="nginx" scheme="http://hifor.net/categories/nginx/"/>
+    
+    
+      <category term="nginx" scheme="http://hifor.net/tags/nginx/"/>
+    
+  </entry>
+  
+</feed>
