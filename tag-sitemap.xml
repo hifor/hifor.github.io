@@ -44,27 +44,6 @@
     </url>
 
     <url>
-        <loc>http://hifor.net/tags/java/</loc>
-        <lastmod>2015-09-27T09:18:34.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://hifor.net/tags/json/</loc>
-        <lastmod>2015-09-27T09:18:34.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://hifor.net/tags/fastjson/</loc>
-        <lastmod>2015-09-27T09:18:34.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://hifor.net/tags/%E5%89%8D%E7%AB%AF/</loc>
         <lastmod>2015-09-28T15:09:38.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -109,6 +88,27 @@
     <url>
         <loc>http://hifor.net/tags/node-js/</loc>
         <lastmod>2016-01-27T06:52:37.013Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://hifor.net/tags/java/</loc>
+        <lastmod>2017-01-24T09:46:16.801Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://hifor.net/tags/json/</loc>
+        <lastmod>2017-01-24T09:46:16.801Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://hifor.net/tags/fastjson/</loc>
+        <lastmod>2017-01-24T09:46:16.801Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
