@@ -3,17 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: cms | Hifor</title>
+  <title>一行代码让系统崩溃 | Hifor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Hifor,IKin,Java,C#,ASP.NET,ikin&apos;s blog,hifor blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hifor">
-<meta property="og:url" content="http://hifor.net/tags/cms/index.html">
+  <meta name="description" content="一行代码 系统崩溃">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一行代码让系统崩溃">
+<meta property="og:url" content="http://hifor.net/2017/03/05/一行代码让系统崩溃/index.html">
 <meta property="og:site_name" content="Hifor">
-<meta property="og:description" content="Hifor,IKin,Java,C#,ASP.NET,ikin&apos;s blog,hifor blog">
+<meta property="og:description" content="一行代码 系统崩溃">
+<meta property="og:image" content="http://7xjzgy.com1.z0.glb.clouddn.com/article_banner_20170305001.png">
+<meta property="og:updated_time" content="2017-03-05T10:29:11.352Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hifor">
-<meta name="twitter:description" content="Hifor,IKin,Java,C#,ASP.NET,ikin&apos;s blog,hifor blog">
+<meta name="twitter:title" content="一行代码让系统崩溃">
+<meta name="twitter:description" content="一行代码 系统崩溃">
+<meta name="twitter:image" content="http://7xjzgy.com1.z0.glb.clouddn.com/article_banner_20170305001.png">
   
     <link rel="alternative" href="/atom.xml" title="Hifor" type="application/atom+xml">
   
@@ -59,39 +62,97 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/31/cms-mojoPortal/" class="archive-article-date">
-  <time datetime="2015-05-31T12:48:55.000Z" itemprop="datePublished">5月 31</time>
+        <section id="main"><article id="post-一行代码让系统崩溃" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/05/一行代码让系统崩溃/" class="article-date">
+  <time datetime="2017-03-05T09:01:15.000Z" itemprop="datePublished">2017-03-05</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/31/cms-mojoPortal/">开源Asp.net CMS mojoPortal-源码运行</a>
+    <h1 class="article-title" itemprop="name">
+      一行代码让系统崩溃
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/article_banner_20170305001.png" alt=""><br>一直忙于带开发团队，在带新人过程中踩的那些奇葩的坑，打算近期有时间会一一整理出来。<br>要先吐槽的是这“崩溃”级别的坑，这是2016年国庆期间默默加班补的，印象相当深刻！！！<br><a id="more"></a><br>那是在2016国庆前期，即将放假，还有好多工作，我的内心其实是拒(ji)绝(dong)的。</p>
+<p>那时交给开发成员一个发送短信功能的任务，短信机的服务商有提供java api调用的demo，成员效率相当高，当天就提交了代码，照常测试赶在节前最后一天发布上线。<br>可是很快就悲剧了，系统总是莫名奇妙的奔溃，每次都得重启才能解决。<br>更难搞的是完全找不到崩溃规律，一不开心就宕。<br>检查服务器，正常 。<br>检查日志，没有任何异常信息。<br>顿时懵圈……<br>实在没办法了，版本回滚，滚，滚~<br>然后就风平浪静了，系统安安静静的跑着，柔顺、丝滑。</p>
+<p>这不科学！<br>做开发的都有死磕精神，使用超级笨办法，版本比较，苦逼的一行一行嗑代码。<br>当我发现<strong>System.exit(-1);</strong>代码的时候,看过《唐伯虎点秋香》对穿肠飙血的场景吗？当时我就那状态。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (connectRe != APIClient.IMAPI_SUCC) &#123;</div><div class="line">    usage();</div><div class="line">    System.exit(-<span class="number">1</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面代码的意思是:只要连接失败就终止JVM~终止JVM~终止JVM！！！</p>
+<p>后来向成员了解后才知道，他是照搬api调用的demo代码，完全不理解代码意思，这怪我咯~</p>
+<p><strong>我不生产代码，我只是代码的搬运工</strong>，对于这种开发人员，我只想说三个字:<strong>拍死</strong>!!!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+
+      <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享</a></div>
+      <script>
+        window._bd_share_config={
+          "common":{
+            "bdSnsKey":{},
+            "bdText":"",
+            "bdMini":"2",
+            "bdMiniList":["mshare","weixin","tsina","fbook","twi","douban","qzone","renren","tieba","huaban","youdao","sdo","qingbiji","ty","linkedin","mail"],"bdPic":"","bdStyle":"0","bdSize":"16"},
+          "share":{"bdSize":16},
+          "image":{"viewList":[],"viewText":"share","viewSize":"16"}};
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+      </script>
+      
+      <a data-url="http://hifor.net/2017/03/05/一行代码让系统崩溃/" data-id="cizwjdbps0000qg0qd680hb50" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bug/">bug</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/09/27/FastJson序列化和反序列化/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">FastJson序列化和反序列化</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-一行代码让系统崩溃" data-title="一行代码让系统崩溃" data-url="http://hifor.net/2017/03/05/一行代码让系统崩溃/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'hifor'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
 </section>
         
           <aside id="sidebar">
