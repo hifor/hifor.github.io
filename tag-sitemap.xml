@@ -51,41 +51,6 @@
     </url>
 
     <url>
-        <loc>http://hifor.net/tags/blog/</loc>
-        <lastmod>2017-03-05T08:20:08.837Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://hifor.net/tags/hexo/</loc>
-        <lastmod>2017-03-05T08:20:08.837Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://hifor.net/tags/github/</loc>
-        <lastmod>2017-03-05T08:20:08.837Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://hifor.net/tags/git/</loc>
-        <lastmod>2017-03-05T08:20:08.837Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://hifor.net/tags/node-js/</loc>
-        <lastmod>2017-03-05T08:20:08.837Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://hifor.net/tags/json/</loc>
         <lastmod>2017-03-05T08:29:53.825Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -116,6 +81,41 @@
     <url>
         <loc>http://hifor.net/tags/log4j2/</loc>
         <lastmod>2017-06-08T07:44:11.795Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://hifor.net/tags/blog/</loc>
+        <lastmod>2017-06-10T02:44:44.091Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://hifor.net/tags/hexo/</loc>
+        <lastmod>2017-06-10T02:44:44.091Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://hifor.net/tags/github/</loc>
+        <lastmod>2017-06-10T02:44:44.091Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://hifor.net/tags/git/</loc>
+        <lastmod>2017-06-10T02:44:44.091Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://hifor.net/tags/node-js/</loc>
+        <lastmod>2017-06-10T02:44:44.091Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

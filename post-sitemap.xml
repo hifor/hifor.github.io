@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://hifor.net/2015/07/01/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-hexo-github/</loc>
+        <lastmod>2017-06-10T02:44:44.091Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://hifor.net/2015/09/26/log4j2%E9%85%8D%E7%BD%AE/</loc>
         <lastmod>2017-06-08T07:44:11.795Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -25,14 +33,6 @@
     <url>
         <loc>http://hifor.net/2015/09/27/FastJson%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</loc>
         <lastmod>2017-03-05T08:29:53.825Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://hifor.net/2015/07/01/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-hexo-github/</loc>
-        <lastmod>2017-03-05T08:20:08.837Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
