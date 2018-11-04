@@ -13,12 +13,12 @@
 <meta property="og:site_name" content="Hifor">
 <meta property="og:description" content="一行代码 系统崩溃">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://7xjzgy.com1.z0.glb.clouddn.com/article_banner_20170305001.png">
-<meta property="og:updated_time" content="2018-06-29T03:12:57.243Z">
+<meta property="og:image" content="http://hifor.net/image/article_banner_20170305001.png">
+<meta property="og:updated_time" content="2018-11-04T07:07:48.931Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一行代码让系统崩溃">
 <meta name="twitter:description" content="一行代码 系统崩溃">
-<meta name="twitter:image" content="http://7xjzgy.com1.z0.glb.clouddn.com/article_banner_20170305001.png">
+<meta name="twitter:image" content="http://hifor.net/image/article_banner_20170305001.png">
   
     <link rel="alternative" href="/atom.xml" title="Hifor" type="application/atom+xml">
   
@@ -91,7 +91,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="http://7xjzgy.com1.z0.glb.clouddn.com/article_banner_20170305001.png" alt=""><br>一直忙于带开发团队，在带新人过程中踩的那些奇葩的坑，打算近期有时间会一一整理出来。<br>要先吐槽的是这“崩溃”级别的坑，这是2016年国庆期间默默加班补的，印象相当深刻！！！<br><a id="more"></a><br>那是在2016国庆前期，即将放假，还有好多工作，我的内心其实是拒(ji)绝(dong)的。</p>
+        <p><img src="http://hifor.net/image/article_banner_20170305001.png" alt=""><br>一直忙于带开发团队，在带新人过程中踩的那些奇葩的坑，打算近期有时间会一一整理出来。<br>要先吐槽的是这“崩溃”级别的坑，这是2016年国庆期间默默加班补的，印象相当深刻！！！<br><a id="more"></a><br>那是在2016国庆前期，即将放假，还有好多工作，我的内心其实是拒(ji)绝(dong)的。</p>
 <p>那时交给开发成员一个发送短信功能的任务，短信机的服务商有提供java api调用的demo，成员效率相当高，当天就提交了代码，照常测试赶在节前最后一天发布上线。<br>可是很快就悲剧了，系统总是莫名奇妙的奔溃，每次都得重启才能解决。<br>更难搞的是完全找不到崩溃规律，一不开心就宕。<br>检查服务器，正常 。<br>检查日志，没有任何异常信息。<br>顿时懵圈……<br>实在没办法了，版本回滚，滚，滚~<br>然后就风平浪静了，系统安安静静的跑着，柔顺、丝滑。</p>
 <p>这不科学！<br>做开发的都有死磕精神，使用超级笨办法，版本比较，苦逼的一行一行嗑代码。<br>当我发现<strong>System.exit(-1);</strong>代码的时候,看过《唐伯虎点秋香》对穿肠飙血的场景吗？当时我就那状态。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (connectRe != APIClient.IMAPI_SUCC) &#123;</span><br><span class="line">    usage();</span><br><span class="line">    System.exit(-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>上面代码的意思是:只要连接失败就终止JVM~终止JVM~终止JVM！！！</p>
