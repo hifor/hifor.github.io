@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://hifor.net/"/>
+  <link href="http://hifor.github.io/"/>
   <updated>2018-11-04T07:07:48.931Z</updated>
-  <id>http://hifor.net/</id>
+  <id>http://hifor.github.io/</id>
   
   <author>
     <name>IKin</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>一行代码让系统崩溃</title>
-    <link href="http://hifor.net/posts/20170305-fcc529ed.html"/>
-    <id>http://hifor.net/posts/20170305-fcc529ed.html</id>
+    <link href="http://hifor.github.io/posts/20170305-fcc529ed.html"/>
+    <id>http://hifor.github.io/posts/20170305-fcc529ed.html</id>
     <published>2017-03-05T09:01:15.000Z</published>
     <updated>2018-11-04T07:07:48.931Z</updated>
     
@@ -31,19 +31,19 @@
     
     </summary>
     
-      <category term="java" scheme="http://hifor.net/categories/java/"/>
+      <category term="java" scheme="http://hifor.github.io/categories/java/"/>
     
     
-      <category term="java" scheme="http://hifor.net/tags/java/"/>
+      <category term="java" scheme="http://hifor.github.io/tags/java/"/>
     
-      <category term="bug" scheme="http://hifor.net/tags/bug/"/>
+      <category term="bug" scheme="http://hifor.github.io/tags/bug/"/>
     
   </entry>
   
   <entry>
     <title>FastJson序列化和反序列化</title>
-    <link href="http://hifor.net/posts/20150927-a5c0330a.html"/>
-    <id>http://hifor.net/posts/20150927-a5c0330a.html</id>
+    <link href="http://hifor.github.io/posts/20150927-a5c0330a.html"/>
+    <id>http://hifor.github.io/posts/20150927-a5c0330a.html</id>
     <published>2015-09-27T08:43:15.000Z</published>
     <updated>2018-11-04T07:15:44.095Z</updated>
     
@@ -55,21 +55,21 @@
     
     </summary>
     
-      <category term="java" scheme="http://hifor.net/categories/java/"/>
+      <category term="java" scheme="http://hifor.github.io/categories/java/"/>
     
     
-      <category term="java" scheme="http://hifor.net/tags/java/"/>
+      <category term="java" scheme="http://hifor.github.io/tags/java/"/>
     
-      <category term="json" scheme="http://hifor.net/tags/json/"/>
+      <category term="json" scheme="http://hifor.github.io/tags/json/"/>
     
-      <category term="fastjson" scheme="http://hifor.net/tags/fastjson/"/>
+      <category term="fastjson" scheme="http://hifor.github.io/tags/fastjson/"/>
     
   </entry>
   
   <entry>
     <title>log4j2配置</title>
-    <link href="http://hifor.net/posts/20150926-304680b6.html"/>
-    <id>http://hifor.net/posts/20150926-304680b6.html</id>
+    <link href="http://hifor.github.io/posts/20150926-304680b6.html"/>
+    <id>http://hifor.github.io/posts/20150926-304680b6.html</id>
     <published>2015-09-26T15:44:36.000Z</published>
     <updated>2018-11-04T07:15:50.271Z</updated>
     
@@ -81,19 +81,19 @@
     
     </summary>
     
-      <category term="java" scheme="http://hifor.net/categories/java/"/>
+      <category term="java" scheme="http://hifor.github.io/categories/java/"/>
     
     
-      <category term="java" scheme="http://hifor.net/tags/java/"/>
+      <category term="java" scheme="http://hifor.github.io/tags/java/"/>
     
-      <category term="log4j2" scheme="http://hifor.net/tags/log4j2/"/>
+      <category term="log4j2" scheme="http://hifor.github.io/tags/log4j2/"/>
     
   </entry>
   
   <entry>
     <title>前端工程与性能优化</title>
-    <link href="http://hifor.net/posts/20150926-d81822ad.html"/>
-    <id>http://hifor.net/posts/20150926-d81822ad.html</id>
+    <link href="http://hifor.github.io/posts/20150926-d81822ad.html"/>
+    <id>http://hifor.github.io/posts/20150926-d81822ad.html</id>
     <published>2015-09-26T08:36:46.000Z</published>
     <updated>2018-11-04T07:15:50.276Z</updated>
     
@@ -105,19 +105,19 @@
     
     </summary>
     
-      <category term="前端" scheme="http://hifor.net/categories/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://hifor.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="前端" scheme="http://hifor.net/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://hifor.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="性能" scheme="http://hifor.net/tags/%E6%80%A7%E8%83%BD/"/>
+      <category term="性能" scheme="http://hifor.github.io/tags/%E6%80%A7%E8%83%BD/"/>
     
   </entry>
   
   <entry>
     <title>零基础免费搭建个人博客-hexo+github</title>
-    <link href="http://hifor.net/posts/20150701-2309139e.html"/>
-    <id>http://hifor.net/posts/20150701-2309139e.html</id>
+    <link href="http://hifor.github.io/posts/20150701-2309139e.html"/>
+    <id>http://hifor.github.io/posts/20150701-2309139e.html</id>
     <published>2015-07-01T08:36:46.000Z</published>
     <updated>2018-11-04T07:50:07.360Z</updated>
     
@@ -129,25 +129,25 @@
     
     </summary>
     
-      <category term="blog" scheme="http://hifor.net/categories/blog/"/>
+      <category term="blog" scheme="http://hifor.github.io/categories/blog/"/>
     
     
-      <category term="blog" scheme="http://hifor.net/tags/blog/"/>
+      <category term="blog" scheme="http://hifor.github.io/tags/blog/"/>
     
-      <category term="hexo" scheme="http://hifor.net/tags/hexo/"/>
+      <category term="hexo" scheme="http://hifor.github.io/tags/hexo/"/>
     
-      <category term="github" scheme="http://hifor.net/tags/github/"/>
+      <category term="github" scheme="http://hifor.github.io/tags/github/"/>
     
-      <category term="git" scheme="http://hifor.net/tags/git/"/>
+      <category term="git" scheme="http://hifor.github.io/tags/git/"/>
     
-      <category term="node.js" scheme="http://hifor.net/tags/node-js/"/>
+      <category term="node.js" scheme="http://hifor.github.io/tags/node-js/"/>
     
   </entry>
   
   <entry>
     <title>Goagent最新可用IP</title>
-    <link href="http://hifor.net/posts/20150518-1dded02a.html"/>
-    <id>http://hifor.net/posts/20150518-1dded02a.html</id>
+    <link href="http://hifor.github.io/posts/20150518-1dded02a.html"/>
+    <id>http://hifor.github.io/posts/20150518-1dded02a.html</id>
     <published>2015-05-18T02:25:33.000Z</published>
     <updated>2015-07-01T00:24:33.000Z</updated>
     
@@ -159,17 +159,17 @@
     
     </summary>
     
-      <category term="goagent" scheme="http://hifor.net/categories/goagent/"/>
+      <category term="goagent" scheme="http://hifor.github.io/categories/goagent/"/>
     
     
-      <category term="goagent" scheme="http://hifor.net/tags/goagent/"/>
+      <category term="goagent" scheme="http://hifor.github.io/tags/goagent/"/>
     
   </entry>
   
   <entry>
     <title>Nginx-启动/关闭/重启/检测 BAT批处理</title>
-    <link href="http://hifor.net/posts/20141203-b8c96bb9.html"/>
-    <id>http://hifor.net/posts/20141203-b8c96bb9.html</id>
+    <link href="http://hifor.github.io/posts/20141203-b8c96bb9.html"/>
+    <id>http://hifor.github.io/posts/20141203-b8c96bb9.html</id>
     <published>2014-12-03T08:48:59.000Z</published>
     <updated>2018-06-29T06:59:42.187Z</updated>
     
@@ -183,10 +183,10 @@
     
     </summary>
     
-      <category term="nginx" scheme="http://hifor.net/categories/nginx/"/>
+      <category term="nginx" scheme="http://hifor.github.io/categories/nginx/"/>
     
     
-      <category term="nginx" scheme="http://hifor.net/tags/nginx/"/>
+      <category term="nginx" scheme="http://hifor.github.io/tags/nginx/"/>
     
   </entry>
   
