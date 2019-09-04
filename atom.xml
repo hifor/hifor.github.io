@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://hifor.net/"/>
-  <updated>2019-09-03T10:12:30.715Z</updated>
+  <updated>2019-09-03T08:53:12.229Z</updated>
   <id>http://hifor.net/</id>
   
   <author>
@@ -15,38 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>团队开发文档搭建:gitlab+gitbook</title>
-    <link href="http://hifor.net/posts/20190903-349a4f4.html"/>
-    <id>http://hifor.net/posts/20190903-349a4f4.html</id>
-    <published>2019-09-03T09:30:58.000Z</published>
-    <updated>2019-09-03T10:12:30.715Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>作为团队技术开发文档</p></blockquote><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install gitbook-cli -g</span><br><span class="line">$ gitbook -V</span><br></pre></td></tr></table></figure><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> mybook</span><br><span class="line">$ gitbook init</span><br></pre></td></tr></table></figure><h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gitbook build</span><br></pre></td></tr></table></figure><h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gitbook serve</span><br></pre></td></tr></table></figure><h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><ul><li><p>支持中文搜索的search-pro</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install gitbook-plugin-search-pro</span><br></pre></td></tr></table></figure><p>修改book.json:</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"plugins"</span>: [</span><br><span class="line">      <span class="string">"-lunr"</span>, <span class="string">"-search"</span>, <span class="string">"search-pro"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#列出本地所有的gitbook版本</span></span><br><span class="line">$ gitbook ls</span><br><span class="line"><span class="comment">#列出远程可用的gitbook版本</span></span><br><span class="line">$ gitbook ls-remote</span><br><span class="line"><span class="comment">#更新到gitbook的最新版本</span></span><br><span class="line">$ gitbook update</span><br><span class="line"><span class="comment">#卸载对应的gitbook版本</span></span><br><span class="line">$ gitbook uninstall 2.6.7</span><br></pre></td></tr></table></figure><h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── book.json</span><br><span class="line">├── README.md</span><br><span class="line">├── SUMMARY.md</span><br><span class="line">├── chapter-1/</span><br><span class="line">|   ├── README.md</span><br><span class="line">|   └── something.md</span><br><span class="line">└── chapter-2/</span><br><span class="line">    ├── README.md</span><br><span class="line">    └── something.md</span><br></pre></td></tr></table></figure><h2 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h2><blockquote><p>修改book.json文件</p></blockquote><ul><li><p>中文</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"language"</span>: <span class="string">"zh-hans"</span>&#125;</span><br></pre></td></tr></table></figure></li><li><p>书名</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"title"</span>: <span class="string">"学习向导"</span>,</span><br><span class="line">    <span class="attr">"description"</span>: <span class="string">"提供专业化的书单，为自己建立一个清晰的学习路线."</span>,</span><br><span class="line">    <span class="attr">"author"</span>: <span class="string">"S"</span>,</span><br><span class="line">    <span class="attr">"output.name"</span>: <span class="string">"site"</span>,</span><br><span class="line">    <span class="attr">"gitbook"</span>: <span class="string">"3.2.3"</span>,</span><br><span class="line">    <span class="attr">"root"</span>: <span class="string">"."</span>,</span><br><span class="line">    <span class="attr">"structure"</span>: &#123;</span><br><span class="line">        <span class="attr">"readme"</span>: <span class="string">"README.md"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><p>- </p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;作为团队技术开发文档&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;figure class=&quot;highlight bas
-      
-    
-    </summary>
-    
-      <category term="gitbook" scheme="http://hifor.net/categories/gitbook/"/>
-    
-    
-      <category term="gitlab" scheme="http://hifor.net/tags/gitlab/"/>
-    
-      <category term="gitbook" scheme="http://hifor.net/tags/gitbook/"/>
-    
-      <category term="document" scheme="http://hifor.net/tags/document/"/>
-    
-  </entry>
   
   <entry>
     <title>团队博客搭建:hexo+gitlab+jenkins</title>
