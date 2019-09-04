@@ -556,9 +556,9 @@ body {
 .article-header {
   padding: 20px 20px 0;
 }
-.article-title {
+.article-title,
+.article-list-title {
   text-decoration: none;
-  font-size: 1.5em;
   font-weight: bold;
   color: #555;
   line-height: 1.1em;
@@ -567,8 +567,15 @@ body {
   -ms-transition: color 0.2s;
   transition: color 0.2s;
 }
-a.article-title:hover {
+a.article-title:hover,
+a.article-list-title:hover {
   color: #258fb8;
+}
+.article-title {
+  font-size: 2.5em;
+}
+.article-list-title {
+  font-size: 1.5em;
 }
 .article-entry {
   color: #555;
@@ -647,6 +654,7 @@ a.article-title:hover {
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1.4em;
   margin: 1.6em 20px;
+  padding-left: 0.5em;
   border-left: 4px solid #ddd;
 }
 .article-entry blockquote footer {
