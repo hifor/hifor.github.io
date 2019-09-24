@@ -144,7 +144,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 
 <script>
-    var labels = "blog,comments";
     var gitalk = new Gitalk({
       clientID: '4eed20bfa5f203afa32c',
       clientSecret: 'f9f85f592016611bddfa1f3f2aa4500f016931d3',
@@ -153,7 +152,7 @@
       admin: ['hifor'],
       id: window.location.pathname,
       distractionFreeMode: false,
-      labels: labels
+      labels: 'blog,comments'.split(',').filter(l => l)
     })
 
     gitalk.render('gitalk-container')
