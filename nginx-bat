@@ -136,24 +136,21 @@
 </article>
 
 
-<div id="gitalk-container" class="comments"></div>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-<script>
-    var gitalk = new Gitalk({
-      clientID: '4eed20bfa5f203afa32c',
-      clientSecret: 'f9f85f592016611bddfa1f3f2aa4500f016931d3',
-      repo: 'github-pages-comment',
-      owner: 'hifor',
-      admin: ['hifor'],
-      id: window.location.pathname,
-      distractionFreeMode: false,
-      labels: 'blog,comments'.split(',').filter(l => l)
-    })
-
-    gitalk.render('gitalk-container')
+<script src="https://giscus.app/client.js"
+        data-repo="hifor/github-pages-comment"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk5MzkxMDAzOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBZj0F84CdyBM"
+        data-mapping="og:title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position=""
+        data-theme="preferred_color_scheme"
+        data-lang="zh-C"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
 </script>
 
 </section>
