@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>一行代码让系统崩溃 | Hifor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一行代码 系统崩溃">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一行代码让系统崩溃">
+<meta property="og:url" content="https://www.hifor.net/posts/20170305-fcc529ed.html">
+<meta property="og:site_name" content="Hifor">
+<meta property="og:description" content="一行代码 系统崩溃">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.hifor.net/image/article_banner_20170305001.png">
+<meta property="article:published_time" content="2017-03-05T09:01:15.000Z">
+<meta property="article:modified_time" content="2019-08-23T03:06:20.374Z">
+<meta property="article:author" content="IKin">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="bug">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.hifor.net/image/article_banner_20170305001.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Hifor" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//fonts.proxy.ustclug.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer">
+
+    <div id="header-inner">
+      <div class="outer">
+      <h1 id="logo-wrap"><a href="/" id="logo">Hifor</a></h1>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://hi-sample.github.io/">代码卡片</a>
+        
+          <a class="main-nav-link" href="/about/">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.hifor.net"></form>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-一行代码让系统崩溃" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/posts/20170305-fcc529ed.html" class="article-date">
+  <time datetime="2017-03-05T09:01:15.000Z" itemprop="datePublished">2017-03-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+          
+  
+    <h1 class="article-title" itemprop="name">
+      一行代码让系统崩溃
+    </h1>
+  
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/image/article_banner_20170305001.png"><br>一直忙于带开发团队，在带新人过程中踩的那些奇葩的坑，打算近期有时间会一一整理出来。<br>要先吐槽的是这“崩溃”级别的坑，这是2016年国庆期间默默加班补的，印象相当深刻！！！</p>
+<span id="more"></span>
+<p>那是在2016国庆前期，即将放假，还有好多工作，我的内心其实是拒(ji)绝(dong)的。</p>
+<p>那时交给开发成员一个发送短信功能的任务，短信机的服务商有提供java api调用的demo，成员效率相当高，当天就提交了代码，照常测试赶在节前最后一天发布上线。<br>可是很快就悲剧了，系统总是莫名奇妙的奔溃，每次都得重启才能解决。<br>更难搞的是完全找不到崩溃规律，一不开心就宕。<br>检查服务器，正常 。<br>检查日志，没有任何异常信息。<br>顿时懵圈……<br>实在没办法了，版本回滚，滚，滚~<br>然后就风平浪静了，系统安安静静的跑着，柔顺、丝滑。</p>
+<p>这不科学！<br>做开发的都有死磕精神，使用超级笨办法，版本比较，苦逼的一行一行嗑代码。<br>当我发现**System.exit(-1);**代码的时候,看过《唐伯虎点秋香》对穿肠飙血的场景吗？当时我就那状态。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (connectRe != APIClient.IMAPI_SUCC) &#123;</span><br><span class="line">    usage();</span><br><span class="line">    System.exit(-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码的意思是:只要连接失败就终止JVM<del>终止JVM</del>终止JVM！！！</p>
+<p>后来向成员了解后才知道，他是照搬api调用的demo代码，完全不理解代码意思，这怪我咯~</p>
+<p><strong>我不生产代码，我只是代码的搬运工</strong>，对于这种开发人员，我只想说三个字:<strong>拍死</strong>!!!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bug/" rel="tag">bug</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/posts/20190827-adda2db7.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          团队博客搭建:hexo+gitlab+jenkins
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/20150927-a5c0330a.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">FastJson序列化和反序列化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div id="gitalk-container" class="comments"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script>
+    var gitalk = new Gitalk({
+      clientID: '4eed20bfa5f203afa32c',
+      clientSecret: 'f9f85f592016611bddfa1f3f2aa4500f016931d3',
+      repo: 'github-pages-comment',
+      owner: 'hifor',
+      admin: ['hifor'],
+      id: window.location.pathname,
+      distractionFreeMode: false,
+      labels: 'blog,comments'.split(',').filter(l => l)
+    })
+
+    gitalk.render('gitalk-container')
+</script>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BF%A1%E6%81%AF%E8%87%AA%E7%94%B1/">信息自由</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/posts/20190827-adda2db7.html">团队博客搭建:hexo+gitlab+jenkins</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20170305-fcc529ed.html">一行代码让系统崩溃</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20150927-a5c0330a.html">FastJson序列化和反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20150926-304680b6.html">log4j2配置</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20150926-d81822ad.html">前端工程与性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20150701-2309139e.html">零基础免费搭建个人博客-hexo+github</a>
+          </li>
+        
+          <li>
+            <a href="/freedom-of-information">信息自由</a>
+          </li>
+        
+          <li>
+            <a href="/nginx-bat">Nginx-启动/关闭/重启/检测 BAT批处理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fastjson/" rel="tag">fastjson</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/" rel="tag">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/" rel="tag">jenkins</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/" rel="tag">json</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log4j2/" rel="tag">log4j2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/" rel="tag">node.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%87%AA%E7%94%B1/" rel="tag">信息自由</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD/" rel="tag">性能</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fastjson/" style="font-size: 10px;">fastjson</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/log4j2/" style="font-size: 10px;">log4j2</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%87%AA%E7%94%B1/" style="font-size: 10px;">信息自由</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E6%80%A7%E8%83%BD/" style="font-size: 10px;">性能</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 IKin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a target="_blank" rel="noopener" href="https://hi-sample.github.io/" class="mobile-nav-link">代码卡片</a>
+  
+    <a href="/about/" class="mobile-nav-link">About</a>
+  
+</nav>
+    <div class="back-to-top">
+  <i class="fa fa-arrow-up"></i>
+    <span id="scrollpercent"><span>0</span>%</span>
+</div>
+<script src="//apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+<!--
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?2de072f84a3c26d66dbb30aeadaf3cbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+-->
+
+<script src="/js/totop.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>零基础免费搭建个人博客-hexo+github | Hifor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用hexo在github平台免费搭建个人博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="零基础免费搭建个人博客-hexo+github">
+<meta property="og:url" content="https://www.hifor.net/posts/20150701-2309139e.html">
+<meta property="og:site_name" content="Hifor">
+<meta property="og:description" content="使用hexo在github平台免费搭建个人博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701000.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701001.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701006.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701007.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701008.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701010.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701015.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701016.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701017.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701018.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701019.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701020.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701021.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701021-1.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701021-2.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701021-3.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701021-4.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701021-5.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701021-6.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701022.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701023.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701024.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701025.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701026.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701027.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701028.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701029.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701030.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701031.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20160127001.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701032.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701033.png">
+<meta property="og:image" content="https://www.hifor.net/image/hexo20150701034.png">
+<meta property="article:published_time" content="2015-07-01T08:36:46.000Z">
+<meta property="article:modified_time" content="2019-08-23T03:06:15.938Z">
+<meta property="article:author" content="IKin">
+<meta property="article:tag" content="blog">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="github">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="node.js">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.hifor.net/image/hexo20150701000.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Hifor" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//fonts.proxy.ustclug.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer">
+
+    <div id="header-inner">
+      <div class="outer">
+      <h1 id="logo-wrap"><a href="/" id="logo">Hifor</a></h1>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://hi-sample.github.io/">代码卡片</a>
+        
+          <a class="main-nav-link" href="/about/">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.hifor.net"></form>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-零基础免费搭建个人博客-hexo-github" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/posts/20150701-2309139e.html" class="article-date">
+  <time datetime="2015-07-01T08:36:46.000Z" itemprop="datePublished">2015-07-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/blog/">blog</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+          
+  
+    <h1 class="article-title" itemprop="name">
+      零基础免费搭建个人博客-hexo+github
+    </h1>
+  
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/image/hexo20150701000.png"><br>使用hexo生成静态博客并架设在免费的github page平台</p>
+<span id="more"></span>
+
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>系统:</p>
+<ul>
+<li>Window 7 64位</li>
+</ul>
+<p>使用软件:</p>
+<ul>
+<li>Git v1.9.5<br>[下载地址] <a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1c0rroje">百度云</a> <a target="_blank" rel="noopener" href="http://yunpan.cn/cQbXP6aytfC4w">360云盘 访问密码 d269</a> <a target="_blank" rel="noopener" href="http://git-scm.com/download/">Git官网</a></li>
+<li>Node.js v0.12.5 x64<br>[下载地址] <a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1o6opb9g">百度云</a> <a target="_blank" rel="noopener" href="http://yunpan.cn/cQbGMDsq7DruS">360云盘 访问密码 608f</a> <a target="_blank" rel="noopener" href="https://nodejs.org/download/">node.js官网</a><br>32位或64位按自己电脑的系统来选择，如果不清楚，可以直接在官网下载32位的，可以兼容64位系统</li>
+</ul>
+<p>备注:<br>不同软件版本的安装与使用会有差异，请尽量与本教程保持一致</p>
+<h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><ul>
+<li>大部分按默认安装，一路点击”Next”<br><img src="/image/hexo20150701001.png"></li>
+<li>这里选择对应的windows选项，如下图<br><img src="/image/hexo20150701006.png"><br><img src="/image/hexo20150701007.png"></li>
+<li>等待安装完成<br><img src="/image/hexo20150701008.png"></li>
+</ul>
+<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><ul>
+<li>Node安装更加简单，还是一路”Next”,最后等待安装完成即可<br><img src="/image/hexo20150701010.png"><br><img src="/image/hexo20150701015.png"></li>
+</ul>
+<h2 id="验证软件正确安装"><a href="#验证软件正确安装" class="headerlink" title="验证软件正确安装"></a>验证软件正确安装</h2><ul>
+<li>同时按下Win键和R键（或者点击“开始菜单”-&gt;点击“运行”）,打开运行窗口,输入“cmd”<br>然后输入以下命令，结果与下图相同则说明安装正确，若不正确可以卸载软件重新安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+<img src="/image/hexo20150701016.png"></li>
+</ul>
+<h2 id="申请GitHub"><a href="#申请GitHub" class="headerlink" title="申请GitHub"></a>申请GitHub</h2><ul>
+<li>点击-&gt;<a target="_blank" rel="noopener" href="https://github.com/">GitHub</a>进入官网注册帐号</li>
+<li>按下图分别输入用户名、邮箱、密码，然后点击注册<br><img src="/image/hexo20150701017.png"></li>
+<li>按默认点击“Finish sign up”<br><img src="/image/hexo20150701018.png"></li>
+<li>点击”New repository”，新建一个版本库<br><img src="/image/hexo20150701019.png"></li>
+<li>输入Repository name:yourname.github.io(yourname与你的注册用户名一致,这个就是你博客的域名了)<br><img src="/image/hexo20150701020.png"><br>到此github帐号申请完成<br><img src="/image/hexo20150701021.png"></li>
+<li>启用GitHub Page<br>点击右边的“Setting”菜单进入设置,点击”Launch automatic page generator”<br><img src="/image/hexo20150701021-1.png"><br>点击底部的”Continue to layouts”<br><img src="/image/hexo20150701021-2.png"><br>最后点击”Publish page”,发布github默认生成的一个静态站点<br><img src="/image/hexo20150701021-3.png"></li>
+<li>验证邮箱<br>点击个人设置<br><img src="/image/hexo20150701021-4.png"><br>点击”Send verification Email”发送验证邮件<br><img src="/image/hexo20150701021-5.png"><br>进入你的邮箱，查收验证邮件进行验证<br><img src="/image/hexo20150701021-6.png"></li>
+</ul>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>hexo是基于node.js的静态博客，<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">官网</a>也是搭建在GitHub上</p>
+<ul>
+<li>在电脑上新建一个blog文件夹,该文件夹用于存放你的博客文件,然后右键单击选择“Git Bash”<br><img src="/image/hexo20150701022.png"></li>
+<li>大家估计都有被“墙”的经历，安装hexo为了避免出现类似情况，我使用<a target="_blank" rel="noopener" href="http://npm.taobao.org/">淘宝NPM镜像</a>,输入以下命令等待安装完成<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<img src="/image/hexo20150701023.png"></li>
+<li>使用淘宝NPM安装Hexo<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+与原先的npm完全一样，只是命令改为cnpm,一样等待hexo安装完成<br><img src="/image/hexo20150701024.png"><br>出现的WARN可以不用理会<br>继续输入以下命令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install hexo --save</span><br></pre></td></tr></table></figure>
+安装完成后，在输入命令，验证是否安装正确<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo -v</span><br></pre></td></tr></table></figure>
+<img src="/image/hexo20150701025.png"></li>
+</ul>
+<h2 id="本地运行hexo"><a href="#本地运行hexo" class="headerlink" title="本地运行hexo"></a>本地运行hexo</h2><ul>
+<li>初始化hexo<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
+<img src="/image/hexo20150701026.png"></li>
+<li>安装生成器<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install</span><br></pre></td></tr></table></figure>
+<img src="/image/hexo20150701027.png"></li>
+<li>运行hexo,以后要在本地运行博客只要输入该命令即可<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s -g</span><br></pre></td></tr></table></figure>
+<img src="/image/hexo20150701028.png"><br>打开浏览器，输入localhost:4000,就可以在本地看到你的个人博客了<br><img src="/image/hexo20150701029.png"></li>
+<li>停止运行<br>按住Ctrl+C键即可停止</li>
+</ul>
+<h2 id="管理博客"><a href="#管理博客" class="headerlink" title="管理博客"></a>管理博客</h2><ul>
+<li>配置信息<br>使用<a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1pJFruER">Sublime_Text</a>编辑器（绿色软件无需安装，解压即可使用）打开blog&#x2F;_config.yml文件，进行配置<br><img src="/image/hexo20150701030.png"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#博客名称</span></span><br><span class="line">title: 我的博客</span><br><span class="line"><span class="comment">#副标题</span></span><br><span class="line">subtitle: 一天进步一点</span><br><span class="line"><span class="comment">#简介</span></span><br><span class="line">description: 记录生活点滴</span><br><span class="line"><span class="comment">#博客作者</span></span><br><span class="line">author: John Doe</span><br><span class="line"><span class="comment">#博客语言</span></span><br><span class="line">language: zh-CN</span><br><span class="line"><span class="comment">#时区</span></span><br><span class="line">timezone:</span><br><span class="line"></span><br><span class="line"><span class="comment">#博客地址,与申请的GitHub一致</span></span><br><span class="line">url: http://elfwalk.github.io</span><br><span class="line">root: /</span><br><span class="line"><span class="comment">#博客链接格式</span></span><br><span class="line">permalink: :year/:month/:day/:title/</span><br><span class="line">permalink_defaults:</span><br><span class="line"></span><br><span class="line">source_dir: <span class="built_in">source</span></span><br><span class="line">public_dir: public</span><br><span class="line">tag_dir: tags</span><br><span class="line">archive_dir: archives</span><br><span class="line">category_dir: categories</span><br><span class="line">code_dir: downloads/code</span><br><span class="line">i18n_dir: :lang</span><br><span class="line">skip_render:</span><br><span class="line"></span><br><span class="line">new_post_name: :title.md <span class="comment"># File name of new posts</span></span><br><span class="line">default_layout: post</span><br><span class="line">titlecase: <span class="literal">false</span> <span class="comment"># Transform title into titlecase</span></span><br><span class="line">external_link: <span class="literal">true</span> <span class="comment"># Open external links in new tab</span></span><br><span class="line">filename_case: 0</span><br><span class="line">render_drafts: <span class="literal">false</span></span><br><span class="line">post_asset_folder: <span class="literal">false</span></span><br><span class="line">relative_link: <span class="literal">false</span></span><br><span class="line">future: <span class="literal">true</span></span><br><span class="line">highlight:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span></span><br><span class="line">  line_number: <span class="literal">true</span></span><br><span class="line">  auto_detect: <span class="literal">true</span></span><br><span class="line">  tab_replace:</span><br><span class="line"></span><br><span class="line">default_category: uncategorized</span><br><span class="line">category_map:</span><br><span class="line">tag_map:</span><br><span class="line"></span><br><span class="line"><span class="comment">#日期格式</span></span><br><span class="line">date_format: YYYY-MM-DD</span><br><span class="line">time_format: HH:mm:ss</span><br><span class="line"></span><br><span class="line"><span class="comment">#分页，每页文章数量</span></span><br><span class="line">per_page: 10</span><br><span class="line">pagination_dir: page</span><br><span class="line"></span><br><span class="line"><span class="comment">#博客主题</span></span><br><span class="line">theme: landscape</span><br><span class="line"></span><br><span class="line"><span class="comment">#发布设置</span></span><br><span class="line">deploy: </span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  <span class="comment">#elfwalk改为你的github用户名</span></span><br><span class="line">  repository: https://github.com/elfwalk/elfwalk.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></li>
+<li>写一篇文章<br>输入创建文章命令，生成一个md文件(&#x2F;blog&#x2F;source&#x2F;_posts&#x2F;)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;hello&quot;</span></span><br></pre></td></tr></table></figure>
+<img src="/image/hexo20150701031.png"><br>用编辑器打开hello.md文件,编写完后保存<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">title: hello</span><br><span class="line"><span class="built_in">date</span>: 2015-07-01 22:37:23</span><br><span class="line">categories:</span><br><span class="line">  - 日志</span><br><span class="line">  - 二级目录</span><br><span class="line">tags:</span><br><span class="line">  - hello</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">摘要:</span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line">正文:</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="发布博客"><a href="#发布博客" class="headerlink" title="发布博客"></a>发布博客</h2><h3 id="配置SSH-keys"><a href="#配置SSH-keys" class="headerlink" title="配置SSH keys"></a>配置SSH keys</h3><p>我们如何让本地git项目与远程的github建立联系呢？用SSH keys。</p>
+<ul>
+<li><p>生成新的SSH Key：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">&quot;邮件地址@youremail.com&quot;</span></span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/Users/your_user_directory/.ssh/id_rsa):&lt;直接回车&gt;</span><br></pre></td></tr></table></figure>
+<p>注意1: 此处的邮箱地址，你可以输入自己的邮箱地址；<br>注意2: 此处的「-C」的是大写的「C」<br>然后系统会要你输入密码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):&lt;输入加密串&gt;</span><br><span class="line">Enter same passphrase again:&lt;再次输入加密串&gt;</span><br></pre></td></tr></table></figure>
+<p>在回车中会提示你输入一个密码，这个密码会在你提交项目时使用，如果为空的话提交项目时则不用输入。这个设置是防止别人往你的项目里提交内容。<br>注意：输入密码的时候没有*字样的，你直接输入就可以了。<br>最后看到这样的界面，就成功设置ssh key了：<br><img src="/image/hexo20160127001.png"></p>
+</li>
+<li><p>添加SSH Key到GitHub<br>在本机设置SSH Key之后，需要添加到GitHub上，以完成SSH链接的设置。<br>1、打开本地C:\Documents and Settings\Administrator.ssh\id_rsa.pub文件。此文件里面内容为刚才生成人密钥。如果看不到这个文件，你需要设置显示隐藏文件。准确的复制这个文件的内容，才能保证设置的成功。<br>2、登陆github系统。点击右上角的 Account Settings—&gt;SSH Public keys —&gt; add another public keys<br>3、把你本地生成的密钥复制到里面（key文本框中）， 点击 add key 就ok了</p>
+</li>
+</ul>
+<h3 id="设置git身份信息"><a href="#设置git身份信息" class="headerlink" title="设置git身份信息"></a>设置git身份信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;你的用户名&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;你的邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+<p>  <img src="/image/hexo20150701032.png"></p>
+<ul>
+<li><p>安装hexo git插件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p><img src="/image/hexo20150701033.png"></p>
+</li>
+<li><p>发布更新博客</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d -g</span><br></pre></td></tr></table></figure>
+<p>发布时需要输入github的帐号和密码，输入密码时是看不到自己输入的内容的<br><img src="/image/hexo20150701034.png"><br>发布成功后，访问yourname.github.io看下成果</p>
+</li>
+</ul>
+<h2 id="官方教程"><a href="#官方教程" class="headerlink" title="官方教程"></a>官方教程</h2><p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/index.html">中文文档</a></p>
+<p>评论插件：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/imsun/gitment">gitment</a> 基于github issue搭建的评论系统。</li>
+</ul>
+<p>原文地址:<a target="_blank" rel="noopener" href="http://hifor.net/posts/20150701-2309139e.html">http://hifor.net/posts/20150701-2309139e.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/" rel="tag">node.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/posts/20150926-d81822ad.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          前端工程与性能优化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/freedom-of-information" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">信息自由</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div id="gitalk-container" class="comments"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script>
+    var gitalk = new Gitalk({
+      clientID: '4eed20bfa5f203afa32c',
+      clientSecret: 'f9f85f592016611bddfa1f3f2aa4500f016931d3',
+      repo: 'github-pages-comment',
+      owner: 'hifor',
+      admin: ['hifor'],
+      id: window.location.pathname,
+      distractionFreeMode: false,
+      labels: 'blog,comments'.split(',').filter(l => l)
+    })
+
+    gitalk.render('gitalk-container')
+</script>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BF%A1%E6%81%AF%E8%87%AA%E7%94%B1/">信息自由</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/posts/20190827-adda2db7.html">团队博客搭建:hexo+gitlab+jenkins</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20170305-fcc529ed.html">一行代码让系统崩溃</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20150927-a5c0330a.html">FastJson序列化和反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20150926-304680b6.html">log4j2配置</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20150926-d81822ad.html">前端工程与性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20150701-2309139e.html">零基础免费搭建个人博客-hexo+github</a>
+          </li>
+        
+          <li>
+            <a href="/freedom-of-information">信息自由</a>
+          </li>
+        
+          <li>
+            <a href="/nginx-bat">Nginx-启动/关闭/重启/检测 BAT批处理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fastjson/" rel="tag">fastjson</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/" rel="tag">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/" rel="tag">jenkins</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/" rel="tag">json</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log4j2/" rel="tag">log4j2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/" rel="tag">node.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%87%AA%E7%94%B1/" rel="tag">信息自由</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD/" rel="tag">性能</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fastjson/" style="font-size: 10px;">fastjson</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/log4j2/" style="font-size: 10px;">log4j2</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%87%AA%E7%94%B1/" style="font-size: 10px;">信息自由</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E6%80%A7%E8%83%BD/" style="font-size: 10px;">性能</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 IKin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a target="_blank" rel="noopener" href="https://hi-sample.github.io/" class="mobile-nav-link">代码卡片</a>
+  
+    <a href="/about/" class="mobile-nav-link">About</a>
+  
+</nav>
+    <div class="back-to-top">
+  <i class="fa fa-arrow-up"></i>
+    <span id="scrollpercent"><span>0</span>%</span>
+</div>
+<script src="//apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+<!--
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?2de072f84a3c26d66dbb30aeadaf3cbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+-->
+
+<script src="/js/totop.js"></script>
+
+
+
+  </div>
+</body>
+</html>

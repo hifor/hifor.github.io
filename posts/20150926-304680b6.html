@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>log4j2配置 | Hifor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="log4j 2的配置(输出日志到WEB项目目录、不同级别日志保存不同文件、日志压缩等)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="log4j2配置">
+<meta property="og:url" content="https://www.hifor.net/posts/20150926-304680b6.html">
+<meta property="og:site_name" content="Hifor">
+<meta property="og:description" content="log4j 2的配置(输出日志到WEB项目目录、不同级别日志保存不同文件、日志压缩等)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.hifor.net/image/article_banner_20150926002.png">
+<meta property="article:published_time" content="2015-09-26T15:44:36.000Z">
+<meta property="article:modified_time" content="2019-08-23T03:06:19.110Z">
+<meta property="article:author" content="IKin">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="log4j2">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.hifor.net/image/article_banner_20150926002.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Hifor" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//fonts.proxy.ustclug.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer">
+
+    <div id="header-inner">
+      <div class="outer">
+      <h1 id="logo-wrap"><a href="/" id="logo">Hifor</a></h1>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://hi-sample.github.io/">代码卡片</a>
+        
+          <a class="main-nav-link" href="/about/">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.hifor.net"></form>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-log4j2配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/posts/20150926-304680b6.html" class="article-date">
+  <time datetime="2015-09-26T15:44:36.000Z" itemprop="datePublished">2015-09-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+          
+  
+    <h1 class="article-title" itemprop="name">
+      log4j2配置
+    </h1>
+  
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/image/article_banner_20150926002.png"><br>log4j 2的配置(输出日志到WEB项目目录、不同级别日志保存不同文件、日志压缩等)</p>
+<span id="more"></span>
+
+<p>官方下载地址<a target="_blank" rel="noopener" href="http://logging.apache.org/log4j/2.x/download.html">http://logging.apache.org/log4j/2.x/download.html</a><br>官方配置说明<a target="_blank" rel="noopener" href="http://logging.apache.org/log4j/2.x/manual/configuration.html#SystemProperties">http://logging.apache.org/log4j/2.x/manual/configuration.html#SystemProperties</a></p>
+<p><del>log4j 2版本已经不支持properties类型的配置文件了</del></p>
+<p>Log4j 2.3是最后支持JAVA 6的版本,log4j组件2.4以后的版本已经能够支持.properties格式的配置文件（之前的2.x版均不支持.properties配置）,默认配置文件名称及优先级如下(配置文件路径要放在classpath下)：</p>
+<table>
+<thead>
+<tr>
+<th align="center">优先级</th>
+<th align="center">文件类型</th>
+<th align="left">文件名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">properties</td>
+<td align="left">log4j2-test.properties</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">YAML</td>
+<td align="left">log4j2-test.yaml log4j2-test.yml</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">JSON</td>
+<td align="left">log4j2-test.json log4j2-test.jsn</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">XML</td>
+<td align="left">log4j2-test.xml</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">properties</td>
+<td align="left">log4j2.properties</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">YAML</td>
+<td align="left">log4j2.yaml log4j2.yml</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">JSON</td>
+<td align="left">log4j2.json log4j2.jsn</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">XML</td>
+<td align="left">log4j2.xml</td>
+</tr>
+</tbody></table>
+<p>在没有任何配置的情况下，log4j2会使用默认配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Configuration</span> <span class="attr">status</span>=<span class="string">&quot;WARN&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Appenders</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Console</span> <span class="attr">name</span>=<span class="string">&quot;Console&quot;</span> <span class="attr">target</span>=<span class="string">&quot;SYSTEM_OUT&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">&quot;%d&#123;HH:mm:ss.SSS&#125; [%t] %-5level %logger&#123;36&#125; - %msg%n&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Console</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Appenders</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Loggers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Root</span> <span class="attr">level</span>=<span class="string">&quot;error&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">AppenderRef</span> <span class="attr">ref</span>=<span class="string">&quot;Console&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Root</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Loggers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>该配置只有一个Appender：Console，目标是SYSTEM_OUT，即日志内容，都会打印在控制台上。Root Logger的级别是error，即：所有error及以上级别的日志才会记录。<br>(注：日志级别顺序为 TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL )，所以最终只有2日志会输出(error,fatal)<br>配置第1行中的status&#x3D;”WARN”，可以去掉，它的含义为是否记录log4j2本身的event信息，默认是OFF，设置成“WARN”指：所有log4j2的event信息中，只有WARN及以上级别的信息才记录，大家可以把它改成TRACE试试(最低级别)，看下输出内容有何变化。</p>
+<p>再讲下如何把不同级别的日志，输出到不同的日志文件中以及文件大小限制及压缩。这个在网上，包括官网上，都没有一个是说清楚的。<br>比如，希望trace&#x2F;debug级别的日志输出到debug.log，而info级别的日志输出到info.log，其他如warn&#x2F;error&#x2F;fatal级别的日志都输出到error.log，这样分开输出是有好处的。我们按照如下的log42j.xml的配置，即可实现这样的输出。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- status=&quot;OFF&quot;，可以去掉，它的含义为是否记录log4j2本身的event信息，默认是OFF --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">status</span>=<span class="string">&quot;OFF&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 定义下面的引用名 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;log_pattern&quot;</span>&gt;</span>%d&#123;yyyy-MM-dd HH:mm:ss z&#125; %-5level %class&#123;36&#125;%L%M - %msg%xEx%n<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;log-path&quot;</span>&gt;</span>$&#123;web:rootDir&#125;/logs<span class="tag">&lt;/<span class="name">property</span>&gt;</span><span class="comment">&lt;!-- $&#123;web:rootDir&#125;是项目根目录 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;every_file_size&quot;</span>&gt;</span>5M<span class="tag">&lt;/<span class="name">property</span>&gt;</span><span class="comment">&lt;!-- 日志切割的最小单位 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;output_log_level&quot;</span>&gt;</span>debug<span class="tag">&lt;/<span class="name">property</span>&gt;</span><span class="comment">&lt;!-- 日志输出级别 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--先定义所有的appender --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">appenders</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--这个输出控制台的配置 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Console</span> <span class="attr">name</span>=<span class="string">&quot;Console&quot;</span> <span class="attr">target</span>=<span class="string">&quot;SYSTEM_OUT&quot;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">&quot;trace&quot;</span> <span class="attr">onMatch</span>=<span class="string">&quot;ACCEPT&quot;</span> <span class="attr">onMismatch</span>=<span class="string">&quot;DENY&quot;</span> /&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--这个都知道是输出日志的格式 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">&quot;$&#123;log_pattern&#125;&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Console</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- debug级别日志文件 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--每次大小超过size，则这size大小的日志会自动进行压缩，作为存档 --&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">RollingFile</span> <span class="attr">name</span>=<span class="string">&quot;app_debug&quot;</span> <span class="attr">fileName</span>=<span class="string">&quot;$&#123;log-path&#125;/debug/debug.log&quot;</span> <span class="attr">filePattern</span>=<span class="string">&quot;$&#123;log-path&#125;/debug/debug-%d&#123;yyyy-MM-dd&#125;-%i.log.gz&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Filters</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">&quot;info&quot;</span> <span class="attr">onMatch</span>=<span class="string">&quot;DENY&quot;</span> <span class="attr">onMismatch</span>=<span class="string">&quot;NEUTRAL&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">&quot;debug&quot;</span> <span class="attr">onMatch</span>=<span class="string">&quot;ACCEPT&quot;</span> <span class="attr">onMismatch</span>=<span class="string">&quot;NEUTRAL&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Filters</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">&quot;$&#123;log_pattern&#125;&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">SizeBasedTriggeringPolicy</span> <span class="attr">size</span>=<span class="string">&quot;$&#123;every_file_size&#125;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">RollingFile</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- info级别日志文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">RollingFile</span> <span class="attr">name</span>=<span class="string">&quot;app_info&quot;</span> <span class="attr">fileName</span>=<span class="string">&quot;$&#123;log-path&#125;/info/info.log&quot;</span> <span class="attr">filePattern</span>=<span class="string">&quot;$&#123;log-path&#125;/info/info-%d&#123;yyyy-MM-dd&#125;-%i.log.gz&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Filters</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">&quot;warn&quot;</span> <span class="attr">onMatch</span>=<span class="string">&quot;DENY&quot;</span> <span class="attr">onMismatch</span>=<span class="string">&quot;NEUTRAL&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">&quot;info&quot;</span> <span class="attr">onMatch</span>=<span class="string">&quot;ACCEPT&quot;</span> <span class="attr">onMismatch</span>=<span class="string">&quot;DENY&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Filters</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">&quot;$&#123;log_pattern&#125;&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">SizeBasedTriggeringPolicy</span> <span class="attr">size</span>=<span class="string">&quot;$&#123;every_file_size&#125;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">RollingFile</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- error级别日志文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">RollingFile</span> <span class="attr">name</span>=<span class="string">&quot;app_error&quot;</span> <span class="attr">fileName</span>=<span class="string">&quot;$&#123;log-path&#125;/error/error.log&quot;</span> <span class="attr">filePattern</span>=<span class="string">&quot;$&#123;log-path&#125;/error/error-%d&#123;yyyy-MM-dd&#125;-%i.log.gz&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Filters</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ThresholdFilter</span> <span class="attr">level</span>=<span class="string">&quot;warn&quot;</span> <span class="attr">onMatch</span>=<span class="string">&quot;ACCEPT&quot;</span> <span class="attr">onMismatch</span>=<span class="string">&quot;DENY&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Filters</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">&quot;$&#123;log_pattern&#125;&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">SizeBasedTriggeringPolicy</span> <span class="attr">size</span>=<span class="string">&quot;$&#123;every_file_size&#125;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">RollingFile</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">appenders</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--然后定义logger，只有定义了logger并引入的appender，appender才会生效 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">loggers</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--建立一个默认的root的logger，需要在root的level中指定输出的级别， --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">&quot;$&#123;output_log_level&#125;&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;Console&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;app_debug&quot;</span>/&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;app_info&quot;</span>/&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;app_error&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">loggers</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>主要是要理解ThresholdFilter的onMatch&#x2F;onMismatch的三个选项值：ACCEPT&#x2F;DENY&#x2F;NEUTRAL，其实，根据字面意思，也很好理解。<br>重要的是，如果有多个ThresholdFilter，那么Filters是必须的，同时在Filters中，首先要过滤不符合的日志级别，把不需要的首先DENY掉，然后再ACCEPT需要的日志级别，这个次序不能搞颠倒。</p>
+<p>原文地址:<a target="_blank" rel="noopener" href="http://hifor.net/posts/20150926-304680b6.html">http://hifor.net/posts/20150926-304680b6.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/log4j2/" rel="tag">log4j2</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/posts/20150927-a5c0330a.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          FastJson序列化和反序列化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/20150926-d81822ad.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">前端工程与性能优化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div id="gitalk-container" class="comments"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script>
+    var gitalk = new Gitalk({
+      clientID: '4eed20bfa5f203afa32c',
+      clientSecret: 'f9f85f592016611bddfa1f3f2aa4500f016931d3',
+      repo: 'github-pages-comment',
+      owner: 'hifor',
+      admin: ['hifor'],
+      id: window.location.pathname,
+      distractionFreeMode: false,
+      labels: 'blog,comments'.split(',').filter(l => l)
+    })
+
+    gitalk.render('gitalk-container')
+</script>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BF%A1%E6%81%AF%E8%87%AA%E7%94%B1/">信息自由</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/posts/20190827-adda2db7.html">团队博客搭建:hexo+gitlab+jenkins</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20170305-fcc529ed.html">一行代码让系统崩溃</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20150927-a5c0330a.html">FastJson序列化和反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20150926-304680b6.html">log4j2配置</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20150926-d81822ad.html">前端工程与性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/posts/20150701-2309139e.html">零基础免费搭建个人博客-hexo+github</a>
+          </li>
+        
+          <li>
+            <a href="/freedom-of-information">信息自由</a>
+          </li>
+        
+          <li>
+            <a href="/nginx-bat">Nginx-启动/关闭/重启/检测 BAT批处理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fastjson/" rel="tag">fastjson</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/" rel="tag">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/" rel="tag">jenkins</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/" rel="tag">json</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log4j2/" rel="tag">log4j2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/" rel="tag">node.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%87%AA%E7%94%B1/" rel="tag">信息自由</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD/" rel="tag">性能</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/fastjson/" style="font-size: 10px;">fastjson</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/log4j2/" style="font-size: 10px;">log4j2</a> <a href="/tags/nginx/" style="font-size: 15px;">nginx</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%87%AA%E7%94%B1/" style="font-size: 10px;">信息自由</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E6%80%A7%E8%83%BD/" style="font-size: 10px;">性能</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 IKin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a target="_blank" rel="noopener" href="https://hi-sample.github.io/" class="mobile-nav-link">代码卡片</a>
+  
+    <a href="/about/" class="mobile-nav-link">About</a>
+  
+</nav>
+    <div class="back-to-top">
+  <i class="fa fa-arrow-up"></i>
+    <span id="scrollpercent"><span>0</span>%</span>
+</div>
+<script src="//apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+<!--
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?2de072f84a3c26d66dbb30aeadaf3cbe";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+-->
+
+<script src="/js/totop.js"></script>
+
+
+
+  </div>
+</body>
+</html>
